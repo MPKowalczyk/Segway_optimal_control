@@ -1,0 +1,97 @@
+\documentclass[11pt,a4paper,titlepage]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english,polish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{polski}
+\usepackage[math,light]{anttor}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+%\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{sidecap}
+%\usepackage{wrapfig}
+\usepackage{epstopdf}
+\usepackage{booktabs}
+\usepackage{forloop}
+\usepackage[left=3cm,right=3cm,top=3cm,bottom=3cm]{geometry}
+\usepackage[framed,numbered,autolinebreaks]{mcode}
+\usepackage[colorlinks=false,urlcolor=blue,citecolor=green]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{array}
+\usepackage{hhline}
+\usepackage{svg}
+\usepackage{multirow}
+\usepackage{enumerate}%[I], numerki, [(a)]
+%ustawienie poziomów wypunktowania do wyboru: $\bullet$, $\cdot$, $\diamond$, $-$, $\ast$ and $\circ$ 
+\renewcommand{\labelitemi}{$\diamond$}
+\renewcommand{\labelitemii}{$\bullet$}
+\renewcommand{\labelitemiii}{$-$}
+\renewcommand{\labelitemiv}{$\ast$}
+
+
+\AtBeginDocument{
+
+	\renewcommand{\tablename}{Tabela}
+
+	\renewcommand{\figurename}{Rys.}
+}
+
+%tabelki
+\usepackage{tabularx}
+\newcolumntype{A}{>{\centering\arraybackslash}X}
+\newcolumntype{B}{>{\centering\arraybackslash} m{0.4\textwidth} }
+
+
+% --- < bibliografia > ---
+\usepackage[
+style=numeric,
+sorting=none,
+% Zastosuj styl wpisu bibliograficznego właściwy językowi publikacji.
+language=auto,
+autolang=other,
+% Zapisuj datę dostępu do strony WWW w formacie RRRR-MM-DD.
+urldate=iso8601,
+% Nie dodawaj numerów stron, na których występuje cytowanie.
+backref=false,
+% Podawaj ISBN.
+isbn=true,
+% Nie podawaj URL-i, o ile nie jest to konieczne.
+url=false,
+% Ustawienia związane z polskimi normami dla bibliografii.
+maxbibnames=3,
+% Jeżeli używamy BibTeXa:
+backend=bibtex
+]{biblatex}
+% --- < bibliografia > --- Koniec
+
+\usepackage{csquotes}
+\DeclareQuoteAlias{croatian}{polish} % Ponieważ `csquotes` nie posiada polskiego stylu, można skorzystać z mocno zbliżonego stylu chorwackiego.
+
+\addbibresource{bibliografia.bib}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{Segway}
+\fancyfoot[R]{Optymalizacja w Systemach Sterowania}
+\fancyhead[L]{M. Kowalczyk i M. Podsiadło}     
+\fancyfoot[L]{Strona \thepage \hspace{1pt} z\hspace{1pt} \pageref*{LastPage}}    
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+
+
+
+\begin{document}
+\include{titlepage}
+
+\clearpage
+\tableofcontents
+\clearpage
+
+\include{wstep}
+
+\appendix
+\nocite{*}
+\printbibliography
+\addcontentsline{toc}{section}{Bibliografia}
+\end{document}
