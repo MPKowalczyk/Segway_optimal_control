@@ -29,6 +29,13 @@
 \renewcommand{\labelitemiii}{$-$}
 \renewcommand{\labelitemiv}{$\ast$}
 
+\newcommand*{\captionsource}[2]{%
+  \caption[{#1}]{%
+    #1%
+    \\\hspace{\linewidth}%
+    \textbf{Źródło:} #2%
+  }%
+}
 
 \AtBeginDocument{
 
@@ -89,6 +96,7 @@ backend=bibtex
 \clearpage
 
 \include{wstep}
+\include{model}
 
 \appendix
 \nocite{*}
