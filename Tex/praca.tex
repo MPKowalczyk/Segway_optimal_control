@@ -3,7 +3,8 @@
 \usepackage[english,polish]{babel}
 \usepackage[T1]{fontenc}
 \usepackage{polski}
-\usepackage[math,light]{anttor}
+%\usepackage[math,light]{anttor}
+\usepackage[light]{anttor}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 %\usepackage{amssymb}
@@ -23,11 +24,17 @@
 \usepackage{svg}
 \usepackage{multirow}
 \usepackage{enumerate}%[I], numerki, [(a)]
+%\usepackage{courier}
 %ustawienie poziomów wypunktowania do wyboru: $\bullet$, $\cdot$, $\diamond$, $-$, $\ast$ and $\circ$ 
 \renewcommand{\labelitemi}{$\diamond$}
 \renewcommand{\labelitemii}{$\bullet$}
 \renewcommand{\labelitemiii}{$-$}
 \renewcommand{\labelitemiv}{$\ast$}
+
+%Figure numbering
+\usepackage{chngcntr}
+\counterwithin{figure}{section}
+\counterwithin{equation}{section}
 
 \newcommand*{\captionsource}[2]{%
   \caption[{#1}]{%
