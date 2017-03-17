@@ -6,18 +6,23 @@
 clear;
 close all;
 
+%% Parametry symulacji
+Tsim=10;
+fs=1e5;
+
 %% Parametry obiektu sterowania
-Mp = 70;
+Mp = 10;
 l = 1;
-Ip = 70;
+Ip = 10;
 km = 0.1;
 ke = 0.1;
 R = 1;
 r = 0.2;
-Va = 0;
+Va = 100;
 g = 9.81;
 Iw = 0.1;
 Mw = 0.5;
+x0 = [0;0;0;0];
 
 %% Wspó³czynniki modelu matematycznego
 c1 = Mp*l^2 + Ip;
@@ -33,10 +38,9 @@ c10 = -Mp*l;
 c11 = c7*c1/c5 + c9;
 
 %% Symulacja zachowania obiektu
-czas = 0:0.001:1;
-x0 = [0;0;pi+0.1;0];
-%[T,Y] = ode45(@rownania,czas,x0,[],c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11);
-[T,Y] = ode45(@ss_sympy,czas,x0,[],Mp,Mw,l,Ip,Iw,km,ke,R,r,g,Va);
+czas = 0:1/fs:Tsim;
+[T,Y] = ode45(@rownania,czas,x0,[],c1,c2,c3,c4,c5,c6,c7,c8,c9,c10);
+%[T,Y] = ode45(@ss_sympy,czas,x0,[],Mp,Mw,l,Ip,Iw,km,ke,R,r,g,Va);
 
 %% Wykresy wyniku symulacji
 figure(1);
