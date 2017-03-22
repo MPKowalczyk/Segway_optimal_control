@@ -194,9 +194,25 @@ Opisany powyżej model zaimplementowano w programie \textit{MATLAB}. Został on 
 	\label{fig:wychylenie_test}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=4in]{Figures/polozenie_test.eps}
 	\caption{Przebieg zmiennej \(x_1\) (położenia).}
 	\label{fig:polozenie_test}
+\end{figure}
+
+Postanowiono również porównać zaimplementowaną metodę Rungego-Kutty 4-go rzędu z wbudowaną funkcją \textit{ode45}. Porównanie to dla częstotliwości próbkowania równej 1 kHz przedstawiono na rysunku \ref{fig:wychylenie_1khz}. Natomiast na rysunku \ref{fig:wychylenie_10khz} pokazano to samo porównanie dla częstotliwości próbkowania równej 10 kHz. Różnice pomiędzy tymi metodami są niewielkie. Otrzymane wyniki są prawie takie same również dla zwiększonej częstotliwości próbkowania. Można więc stwierdzić, że częstotliwość 1 kHz jest wystarczająca, do poprawnego modelowania zachowania obiektu.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=4in]{Figures/wychylenie_1khz.eps}
+	\caption{Porównanie dla częstotliwości próbkowania równej 1kHz.}
+	\label{fig:wychylenie_1khz}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=4in]{Figures/wychylenie_10khz.eps}
+	\caption{Porównanie dla częstotliwości próbkowania równej 10kHz.}
+	\label{fig:wychylenie_10khz}
 \end{figure}

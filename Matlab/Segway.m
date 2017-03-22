@@ -8,7 +8,7 @@ close all;
 
 %% Parametry symulacji
 Tsim=10;
-fs=1e3;
+fs=1e4;
 
 %% Parametry obiektu sterowania
 Mp = 10;
@@ -38,57 +38,40 @@ c10 = -Mp*l;
 c11 = c7*c1/c5 + c9;
 
 %% Symulacja zachowania obiektu
-<<<<<<< HEAD
 t = 0:1/fs:Tsim;
+tic;
 [t,x] = ode45(@rownania,t,x0,[],c1,c2,c3,c4,c5,c6,c7,c8,c9,c10);
+T1=toc;
+tic;
+[trk,xrk] = rk4(@rownania,x0,Tsim,1/fs,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10);
+T2=toc;
 
-=======
-czas = 0:1/fs:Tsim;
-[T,Y] = ode45(@rownania,czas,x0,[],c1,c2,c3,c4,c5,c6,c7,c8,c9,c10);
-[Trk4 Yrk4] = rk4(@rownania,x0,Tsim,1/fs,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10);
->>>>>>> 02016eaf91632a10ae704db7c562f8d0673bfae5
 %% Wykresy wyniku symulacji
 figure(1);
-plot(t,x(:,1));
+plot(t,x(:,1),'b',trk,xrk(:,1),'r');
 title('Po³o¿enie');
 xlabel('Czas [s]');
 ylabel('x_1 [m]');
 grid on;
-hold on;
-plot(T,Yrk4(:,1));
 legend('ode45','rk4');
 figure(2);
-plot(t,x(:,2));
+plot(t,x(:,2),'b',trk,xrk(:,2),'r');
 title('Prêdkoœæ liniowa');
 xlabel('Czas [s]');
 ylabel('x_2 [m/s]');
 grid on;
-hold on;
-plot(T,Yrk4(:,2));
 legend('ode45','rk4');
 figure(3);
-plot(t,(x(:,3)-pi)*180/pi);
+plot(t,x(:,3)-pi,'b',trk,xrk(:,3)-pi,'r');
 title('Wychylenie');
 xlabel('Czas [s]');
-ylabel('x_3 [^o]');
+ylabel('x_3 [rad]');
 grid on;
-hold on;
-plot(T,Yrk4(:,3));
 legend('ode45','rk4');
 figure(4);
-<<<<<<< HEAD
-plot(t,x(:,4)*180/pi);
+plot(t,x(:,4),'b',trk,xrk(:,4),'r');
 title('Prêdkoœæ k¹towa');
 xlabel('Czas [s]');
-ylabel('x_4 [^o/s]');
+ylabel('x_4 [rad/s]');
 grid on;
-=======
-plot(T,Y(:,4),'r');
-title('prêdkoœæ k¹towa (t)');
-xlabel('czas [s]');
-ylabel('prêdkoœæ k¹towa');
-grid on;
-hold on;
-plot(T,Yrk4(:,4));
 legend('ode45','rk4');
->>>>>>> 02016eaf91632a10ae704db7c562f8d0673bfae5
