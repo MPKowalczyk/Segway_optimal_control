@@ -5,6 +5,25 @@ Podstawowym celem sterowania jest utrzymanie pojazdu w pozycji pionowej. Jest to
 \begin{equation}
 Q=x^T(T)Ax(T)+\int\limits_{0}^{T}Ru(t)^2dt
 \end{equation}
-\noindent Gdzie:
+\noindent Gdzie:\newline
 \(x\) jest stanem obiektu.\newline
-\(u\) jest wejściem
+\(u\) jest wejściem obiektu (napięciem podawanym na silnik).\newline
+\(T\) jest horyzontem czasowym.\newline
+\(R\) jest współczynnikiem określającym wagę kwadratu sterowania.
+
+\paragraph*{}
+Należy wziąć pod uwagę również ograniczenia:
+\begin{equation}
+|u(t)|\leqslant u_{max}
+\label{eq:u_max}
+\end{equation}
+\begin{equation}
+|x_3(t)|\leqslant \phi_{max}
+\label{eq:phi_max}
+\end{equation}
+\noindent Gdzie:\newline
+\(u_{max}\) jest maksymalnym napięciem, które można podać na silnik.\newline
+\(\phi_{max}\) jest maksymalnym wychyleniem pojazdu z niestabilnego punktu równowagi.
+
+\paragraph*{}
+Ograniczenie \eqref{eq:u_max} odnosi się do fizycznego ograniczenia napięciem akumulatora urządzenie. Nie jest możliwe podanie większego napięcia. Ograniczenie \eqref{eq:phi_max} ma na celu zabezpieczenie pojazdu przed upadkiem oraz zrzuceniem transportowanego obiektu.

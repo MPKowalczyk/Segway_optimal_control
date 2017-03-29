@@ -4,11 +4,11 @@
 % Maciej Podsiad³o
 % Problem sterowania optymalnego dla pojazdu typu Segway.
 clear;
-close all;
+%close all;
 
 %% Parametry symulacji
-Tsim=10;
-fs=1e4;
+Tsim=100;
+fs=1e3;
 
 %% Parametry obiektu sterowania
 Mp = 10;
@@ -22,15 +22,15 @@ Va = 0;
 g = 9.81;
 Iw = 0.1;
 Mw = 0.5;
-x0 = [0;0;pi+10*pi/180;0];
+x0 = [0;0;0;0];
 
 %% Wspó³czynniki modelu matematycznego
 c1 = Mp*l^2 + Ip;
 c2 = -2*km*ke/(R*r);
-c3 = 2*km/R*Va;  % sterowanie
+c3 = 2*km/R;%*Va;  % sterowanie
 c4 = Mp*g*l;
 c5 = -Mp*l;
-c6 = 2*km/(R*r)*Va; % sterowanie
+c6 = 2*km/(R*r);%*Va; % sterowanie
 c7 = 2*Mw + 2*Iw/r^2 + Mp;
 c8 = 2*km*ke/(R*r^2);
 c9 = Mp*l;
@@ -39,12 +39,12 @@ c11 = c7*c1/c5 + c9;
 
 %% Symulacja zachowania obiektu
 t = 0:1/fs:Tsim;
-tic;
-[t,x] = ode45(@rownania,t,x0,[],c1,c2,c3,c4,c5,c6,c7,c8,c9,c10);
-T1=toc;
-tic;
-[trk,xrk] = rk4(@rownania,x0,Tsim,1/fs,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10);
-T2=toc;
+%tic;
+[t,x] = ode45(@rownania,t,x0,[],c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,@(s) 100);
+%T1=toc;
+%tic;
+[trk,xrk] = rk4(@rownania,x0,Tsim,1/fs,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,@(s) 100);
+%T2=toc;
 
 %% Wykresy wyniku symulacji
 figure(1);
@@ -62,7 +62,7 @@ ylabel('x_2 [m/s]');
 grid on;
 legend('ode45','rk4');
 figure(3);
-plot(t,x(:,3)-pi,'b',trk,xrk(:,3)-pi,'r');
+plot(t,x(:,3),'b',trk,xrk(:,3),'r');
 title('Wychylenie');
 xlabel('Czas [s]');
 ylabel('x_3 [rad]');
