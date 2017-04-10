@@ -22,7 +22,7 @@ Va = 0;
 g = 9.81;
 Iw = 0.1;
 Mw = 0.5;
-x0 = [0;0;0;0];
+x0 = [0;0;pi+10*pi/180;0];
 
 %% Wspó³czynniki modelu matematycznego
 c1 = Mp*l^2 + Ip;
@@ -40,10 +40,11 @@ c11 = c7*c1/c5 + c9;
 %% Symulacja zachowania obiektu
 t = 0:1/fs:Tsim;
 %tic;
-[t,x] = ode45(@rownania,t,x0,[],c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,@(s) 100);
+[t,x] = ode45(@rownania,t,x0,[],c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,@(s) 0);
 %T1=toc;
 %tic;
-[trk,xrk] = rk4(@rownania,x0,Tsim,1/fs,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,@(s) 100);
+%[trk,xrk] = rk4(@rownania,x0,Tsim,1/fs,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,@(s) 100);
+[trk,xrk] = ode45(@rownania_ss,t,x0,[],c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,@(s) 0);
 %T2=toc;
 
 %% Wykresy wyniku symulacji

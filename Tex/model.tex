@@ -183,6 +183,16 @@ Na podstawie powyższych wyprowadzeń otrzymano nieliniowe równania dynamiki ob
 \begin{equation}
 \frac{2k_m}{Rr}V_a=(2M_w+\frac{2I_w}{r^2}+M_p)\ddot x+\frac{2k_mk_e}{Rr^2}\dot x+M_pl\ddot \theta_p\cos \theta_p-M_pl\dot \theta_p^2\sin \theta_p
 \end{equation}
+Równania te przekształcono do postaci nieliniowych równań stanu:
+\begin{equation}
+\begin{aligned}
+\dot x_1 &= x_2\\
+\dot x_2 &= -\frac{a_8}{a_7}x_2-\frac{a_9}{a_7}\cdot \frac{(\frac{a_5a_6}{a_7}\sin x_3-a_3)u-(\frac{a_5a_8}{a_7}\sin x_3+a_2)x_2-a_4\sin x_3}{a_1+\frac{a_5a_9}{a_7}\cos x_3\sin x_3}\cos x_3+\frac{a_6}{a_7}u\\
+\dot x_3 &= x_4\\
+\dot x_4 &= \frac{(\frac{a_5a_6}{a_7}\sin x_3 -a_3)u-(\frac{a_5a_8}{a_7}\sin x_3+a_2)x_2-a_4\sin x_3}{a_1+\frac{a_5a_9}{a_7}\cos x_3\sin x_3}
+\end{aligned}
+\label{eq:nonlinear_ss}
+\end{equation}
 
 \paragraph*{}
 Opisany powyżej model zaimplementowano w programie \textit{MATLAB}. Został on przetestowany poprzez zadanie takich warunków w których można łatwo przewidzieć zachowanie rzeczywistego obiektu, np. niewielkie odchylenie od niestabilnego punktu równowagi (obiekt ustawiony pionowo do góry). Odpowiedź modelu dla tej sytuacji przedstawiono na rysunku \ref{fig:wychylenie_test}. W tym wypadku odpowiedź obiektu przypomina wahadło fizyczne. Na rysunku \ref{fig:polozenie_test} pokazano jak zmienia się położenie pojazdu w opisywanej sytuacji. Przebiegi czasowe zmiennych stanu zgadzają się z przewidywanym zachowaniem realnego urządzenia (nie biorąc pod uwagę uderzenia w ziemię).
