@@ -22,7 +22,7 @@ Va = 0;
 g = 9.81;
 Iw = 0.1;
 Mw = 0.5;
-x0 = [0;0;pi+10*pi/180;0;0];
+x0 = [0;0;10*pi/180;0];
 
 %% Wspó³czynniki modelu matematycznego
 c1 = Mp*l^2 + Ip;
@@ -42,42 +42,40 @@ K=1e2;
 %% Symulacja zachowania obiektu
 %t = 0:1/fs:Tsim;
 %tic;
-%[t,x] = ode45(@rownania,t,x0,[],c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,@(s) 0);
+[t,x] = rk4(@rownania_ss_180,x0,Tsim,1/fs,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,@(s) 0);
 %T1=toc;
 %tic;
-%[trk,xrk] = rk4(@rownania,x0,Tsim,1/fs,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,@(s) 100);
-%[trk,xrk] = ode45(@rownania_ss,t,x0,[],c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,@(s) 0);
+[trk,xrk] = rk4(@rownania_ss,x0+[0;0;pi;0],Tsim,1/fs,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,@(s) 0);
+%[trk,xrk] = ode45(@rownania_ss,t,x0,[],c1,c2,c3,c4,c5,c6,c7,c8,c9close a,c10,@(s) 0);
 %T2=toc;
-Q=cost(@rownania_penalty,x0,Tsim,1/fs,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,@(t) 0);
+% Q=cost(@rownania_penalty,x0,Tsim,1/fs,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,@(t) 0);
 
 %% Wykresy wyniku symulacji
-%{
 figure(1);
 plot(t,x(:,1),'b',trk,xrk(:,1),'r');
 title('Po³o¿enie');
 xlabel('Czas [s]');
 ylabel('x_1 [m]');
 grid on;
-legend('ode45','rk4');
+legend('New','Old');
 figure(2);
 plot(t,x(:,2),'b',trk,xrk(:,2),'r');
 title('Prêdkoœæ liniowa');
 xlabel('Czas [s]');
 ylabel('x_2 [m/s]');
 grid on;
-legend('ode45','rk4');
+legend('New','Old');
 figure(3);
 plot(t,x(:,3),'b',trk,xrk(:,3),'r');
 title('Wychylenie');
 xlabel('Czas [s]');
 ylabel('x_3 [rad]');
 grid on;
-legend('ode45','rk4');
+legend('New','Old');
 figure(4);
 plot(t,x(:,4),'b',trk,xrk(:,4),'r');
 title('Prêdkoœæ k¹towa');
 xlabel('Czas [s]');
 ylabel('x_4 [rad/s]');
 grid on;
-legend('ode45','rk4');
-%}
+legend('New','Old');
