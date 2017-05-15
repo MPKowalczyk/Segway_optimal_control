@@ -18,7 +18,7 @@ Va = 0;
 g = 9.81;
 Iw = 0.1;
 Mw = 0.5;
-x0 = [0;0;pi+10*pi/180;0;0];
+x0 = [0;0;pi+0*pi/180;0;0];
 
 %% Wspó³czynniki modelu matematycznego
 c1 = Mp*l^2 + Ip;
