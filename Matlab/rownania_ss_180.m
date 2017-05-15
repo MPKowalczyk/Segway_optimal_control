@@ -1,4 +1,4 @@
-function dx = rownania_ss_180(t,x,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,u)
+function dx = rownania_ss_180(t,x,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,~,~,u)
 
 dx = zeros(4,1);
 dx(1) = x(2);
