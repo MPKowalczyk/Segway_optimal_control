@@ -20,7 +20,6 @@ Va = 0;
 g = 9.81;
 Iw = 0.1;
 Mw = 0.5;
-x0 = [0;0;10*pi/180;0;0];
 
 %% Wspó³czynniki modelu matematycznego
 c1 = Mp*l^2 + Ip;
@@ -35,18 +34,27 @@ c9 = Mp*l;
 c10 = -Mp*l;
 c11 = c7*c1/c5 + c9;
 fi_max=pi/6;
-K=1e2;
+K=1e1;
+
+%% Sterowanie optymalne
+N=16;
+tau=linspace(0,Tsim,N);
+dtau = diff(tau);
+n = ceil(dtau*fs);
+cn = cumsum([1;n]);
+u=ones(size(dtau));
+x0 = [0;0;10*pi/180;0;0];
 
 %% Symulacja zachowania obiektu
 %t = 0:1/fs:Tsim;
 %tic;
-[t,x] = rk4(@rownania_ss_180,x0(1:4),Tsim,1/fs,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,@(s) 0);
+%[t,x] = rk4(@rownania_ss_180,x0(1:4),Tsim,1/fs,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,@(s) 0);
 %T1=toc;
 %tic;
-[trk,xrk] = rk4(@rownania_penalty,x0,Tsim,1/fs,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,@(s) 0);
+%[trk,xrk] = rk4(@rownania_penalty,x0,Tsim,1/fs,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,@(s) 0);
 %[trk,xrk] = ode45(@rownania_ss,t,x0,[],c1,c2,c3,c4,c5,c6,c7,c8,c9close a,c10,@(s) 0);
 %T2=toc;
-Q=cost(@rownania_penalty,x0,Tsim,1/fs,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,@(t) 0);
+%Q=cost(@rownania_penalty,x0,Tsim,1/fs,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,@(t) 0);
 
 %% Wykresy wyniku symulacji
 figure(1);
