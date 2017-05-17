@@ -5,8 +5,8 @@
 % Problem sterowania optymalnego dla pojazdu typu Segway.
 
 %% Parametry symulacji
-Tsim=1;
-fs=1e3;
+Tsim=10;
+fs=1e4;
 
 %% Parametry obiektu sterowania
 Mp = 10;
@@ -38,7 +38,7 @@ K=1e1;
 
 %% Sterowanie optymalne
 N=16;
-tau=linspace(0,Tsim,N);
+tau=linspace(0,Tsim,N)';
 dtau = diff(tau);
 n = ceil(dtau*fs);
 cn = cumsum([1;n]);
@@ -46,13 +46,13 @@ u=ones(size(dtau));
 x0 = [0;0;10*pi/180;0;0];
 
 %% Symulacja zachowania obiektu
-%t = 0:1/fs:Tsim;
+t = 0:1/fs:Tsim;
 %tic;
-%[t,x] = rk4(@rownania_ss_180,x0(1:4),Tsim,1/fs,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,@(s) 0);
+[t,x] = rk4_forw(@rownania_penalty,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,dtau,n,cn,x0',u);
 %T1=toc;
 %tic;
-%[trk,xrk] = rk4(@rownania_penalty,x0,Tsim,1/fs,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,@(s) 0);
-%[trk,xrk] = ode45(@rownania_ss,t,x0,[],c1,c2,c3,c4,c5,c6,c7,c8,c9close a,c10,@(s) 0);
+[trk,xrk] = rk4(@rownania_penalty,x0,Tsim,1/fs,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,1);
+%[t_ode,x_ode] = ode45(@rownania_penalty,t,x0,[],c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,1);
 %T2=toc;
 %Q=cost(@rownania_penalty,x0,Tsim,1/fs,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,@(t) 0);
 

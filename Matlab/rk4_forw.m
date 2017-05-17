@@ -1,4 +1,4 @@
-function [t,x] = rk4_forw(rhs,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,dtau,n,cn,x0)
+function [t,x] = rk4_forw(rhs,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,dtau,n,cn,x0,u)
 x=zeros(cn(end),length(x0));
 t=zeros(cn(end),1);
 for j=1:length(dtau)
