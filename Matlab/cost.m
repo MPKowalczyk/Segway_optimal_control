@@ -16,5 +16,5 @@ for i=1:length(T)
     x = x + ht*(k2+k3) + hs*(k1+k4);
 end
 % Wyliczeni kosztu na podstawie x(T)
-Q=x.'*x;
+Q=x(1:4).'*x(1:4)/2+x(5);
 end
