@@ -12,3 +12,6 @@ f4=S;
 
 %% Calculate derivatives
 H=jacobian([f1,f2,f3,f4,f5],[x1,x2,x3,x4,x5]).';
+dL_x3=simplify(diff(L,x3),'Steps',1000);
+dL_x4=simplify(diff(L,x4),'Steps',1000);
+dM_x3=simplify(diff(M,x3),'Steps',1000);
