@@ -33,10 +33,10 @@ c9 = Mp*l;
 c10 = -Mp*l;
 c11 = c7*c1/c5 + c9;
 fi_max=pi/6;
-K=1e1;
+K=1e3;
 
 %% Sprawdzenie
-de=1e-5;
+de=1e-7;
 epsilon=de*eye(5);
 dQ=zeros(5,1);
 Q0=cost(@rownania_penalty,x0,Tsim,1/fs,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,@(t) 0);
@@ -48,8 +48,8 @@ end
 [trk,xrk] = rk4(@rownania_penalty,x0,Tsim,1/fs,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,@(s) 0);
 figure(1);
 plot(trk,xrk(:,3));
-psiT = [-xrk(end,1:4)';-1];
+psiT = [-xrk(end,1:4)';-1]; % pochodna wskaünika jakoúci po x(T) DO ZMODYFIKOWANIA bez f5
 [tpsi, psi] = rk4_dpsi(@dpsi_calc,xrk,psiT,Tsim,1/fs,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,@(s) 0);
-figure(2);
-plot(tpsi,psi(:,3));
+dQ
+psi0 = psi(1,:)
 roznica = dQ + psi(1,:)'
