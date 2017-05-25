@@ -37,7 +37,7 @@ fi_max=pi/6;
 K=1e1;
 
 %% Sterowanie optymalne
-N=16;
+N=11;
 tau=linspace(0,Tsim,N)';
 dtau = diff(tau);
 n = ceil(dtau*fs);
@@ -46,7 +46,7 @@ u=ones(size(dtau));
 x0 = [0;0;10*pi/180;0;0];
 
 %% Symulacja zachowania obiektu
-t = 0:1/fs:Tsim;
+%t = 0:1/fs:Tsim;
 %tic;
 [t,x] = rk4_forw(@rownania_penalty,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,dtau,n,cn,x0',u);
 %T1=toc;
