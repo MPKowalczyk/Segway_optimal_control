@@ -34,6 +34,7 @@ c11 = c7*c1/c5 + c9;
 fi_max=pi/6;
 K=1e3;
 
+
 %% Symulacja stanu
 N = 5;
 tau = linspace(0,Tsim,N)';
@@ -43,6 +44,7 @@ h0 = 0.001;
 n = ceil(dtau/h0);
 cn = cumsum([1;n]);
 x0 = [0;0;10*pi/180;0;0];
+
 [t, x] = rk4_tau(@rownania_penalty,x0,dtau,cn,h0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,u);
 
 %% Równania sprzê¿one
@@ -71,4 +73,5 @@ for i=1:length(u)
 end
 roznica_gradienty = dQdU - dQdU_check
 
-%% 
+%% sprawdzenie funkcji SimSegway
+[qq,ddQQ] = SimSegway(x0,dtau,cn,h0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,u);
