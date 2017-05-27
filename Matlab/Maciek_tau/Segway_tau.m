@@ -71,4 +71,7 @@ for i=1:length(u)
 end
 roznica_gradienty = dQdU - dQdU_check
 
-%% 
+%% Optymalizacja
+iter=200;
+e0=1e-8;
+[tabU,tabQ]=bfgs2(iter,e0,x0,dtau,cn,h0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,u);

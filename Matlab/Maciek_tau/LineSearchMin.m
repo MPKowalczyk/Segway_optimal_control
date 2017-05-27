@@ -1,4 +1,4 @@
-function [u_best] = LineSearchMin(u0,d,stepLen0,wspEksp,wspKontr,maxit,Q0,x0,dtau,cn,h0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K)
+function u_best = LineSearchMin(u0,d,stepLen0,wspEksp,wspKontr,maxit,Q0,x0,dtau,cn,h0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K)
 
 i=0;
 u = u0;
@@ -33,4 +33,3 @@ end
 %     e
 %     i=i+1;
 % end
-

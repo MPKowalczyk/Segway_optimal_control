@@ -6,8 +6,10 @@ i = 0;
 tabU = zeros(iter,n);
 tabQ = zeros(iter,n);
 W = eye(n);
+dQdU=1;
+R=1;
 
-while (i<iter)
+while (i<iter && norm(dQdU)>eps)
    [Q,dQdU] = SimSegway(x0,dtau,cn,h0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,u);
    if (~i) % pomijane w pierwszej iteracji
        s = u - uPrev;
@@ -21,4 +23,3 @@ while (i<iter)
 end
 
 end
-

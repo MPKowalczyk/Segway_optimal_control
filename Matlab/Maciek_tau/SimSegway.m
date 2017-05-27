@@ -8,4 +8,3 @@ psiT = [-x(end,1:4)';-1]; % pochodna wskaünika jakoúci po x(T)
 dQdU = Z(cn(1:end-1)+[0;ones(length(cn)-2,1)]);
 
 end
-
