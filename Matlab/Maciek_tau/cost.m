@@ -1,4 +1,4 @@
-function Q = cost(rhs,x0,dtau,cn,h,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,u)
+function Q = cost(rhs,x0,dtau,cn,h,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,A,u)
 
 hp = h/2;
 ht = h/3;
@@ -20,6 +20,6 @@ for j=1:length(dtau)
     end
 end
 % Wyliczeni kosztu na podstawie x(T)
-Q=0.5*(x(1:4)'*x(1:4))+x(5);
+Q=0.5*(x(1:4)'*A*x(1:4))+x(5);
 
 end

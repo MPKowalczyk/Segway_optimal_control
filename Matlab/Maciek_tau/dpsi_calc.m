@@ -5,4 +5,3 @@ dpsi = -H*psi;
 dz = psi'*df_u;
 
 end
-
