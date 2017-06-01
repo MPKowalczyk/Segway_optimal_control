@@ -35,14 +35,14 @@ fi_max=pi/6;
 K=1e3;
 
 %% Symulacja stanu
-N = 8;
+N = 20;
 tau = linspace(0,Tsim,N)';
 dtau = diff(tau);
 u = ones(size(dtau));
 h0 = 0.001;
 n = ceil(dtau/h0);
 cn = cumsum([1;n]);
-x0 = [-4;0;0*pi/180;0;0];
+x0 = [-4;0;10*pi/180;0;0];
 [t, x] = rk4_tau(@rownania_penalty,x0,dtau,cn,h0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,u);
 
 %% Równania sprzê¿one
@@ -80,8 +80,8 @@ e0=1e-8;
 figure(1);
 subplot(3,2,1);
 plot(t,x(:,1));
-xlabel('czas [t]');
-ylabel('po³o¿enie [m]');
+xlabel('Czas [t]');
+ylabel('Po³o¿enie [m]');
 grid on;
 % figure(2);
 subplot(3,2,2);
@@ -94,20 +94,20 @@ subplot(3,2,3);
 plot(t,x(:,3));
 hold on;
 plot(t,fi_max*ones(size(t)),'r',t,-fi_max*ones(size(t)),'r');
-xlabel('czas [t]');
-ylabel('wychylenie [rad]');
+xlabel('Czas [t]');
+ylabel('Wychylenie [rad]');
 grid on;
 % figure(4);
 subplot(3,2,4);
 plot(t,x(:,4));
-xlabel('czas [t]');
-ylabel('prêdkoœæ k¹towa [rad/s]');
+xlabel('Czas [t]');
+ylabel('Prêdkoœæ k¹towa [rad/s]');
 grid on;
 % figure(5);
 subplot(3,2,5);
 plot(t,x(:,5));
-xlabel('czas [t]');
-ylabel('kara za wychylenie');
+xlabel('Czas [t]');
+ylabel('Kara za wychylenie');
 grid on;
 % figure(6);
 subplot(3,2,6);
@@ -115,6 +115,6 @@ for i=1:N-1
     ster(cn(i):cn(i+1)) = ones(length(cn(i):cn(i+1)),1)*u(i);
 end
 plot(t,ster);
-xlabel('czas [t]');
-ylabel('sterowanie [V]');
+xlabel('Czas [t]');
+ylabel('Sterowanie [V]');
 grid on;
