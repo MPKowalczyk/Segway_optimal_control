@@ -1,4 +1,4 @@
-function H = psi_value(x,t,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,u)
+function [H, df_u] = psi_value(x,t,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,u)
 k1=-c8/c7;
 k2=c9/c7;
 k3=c10/c7;
@@ -28,7 +28,7 @@ if abs(x(3))>fi_max
 else
     df5_x3=0;
 end
-dS_u=(k6+k5*cos(x(3)))/(k12*cos(x3)^2+k11);
+dS_u=(k6+k5*cos(x(3)))/(k12*cos(x(3))^2+k11);
 df_u=[0;k2*cos(x(3))*dS_u+k4;0;dS_u;0];
 
 H=...
