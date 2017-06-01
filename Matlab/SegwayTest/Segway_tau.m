@@ -1,7 +1,8 @@
 % Problem sterowania optymalnego dla pojazdu typu Segway.
 clear all;
 close all;
-
+format long e;
+format compact;
 %% Parametry symulacji
 Tsim=1;
 fs=1e3;
@@ -74,7 +75,9 @@ roznica_gradienty = dQdU - dQdU_check
 %% Optymalizacja
 iter=200;
 e0=1e-8;
+tic;
 [u,tabU,tabQ]=bfgs2(iter,e0,x0,dtau,cn,h0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,u);
+toc;
 %% wykres wychylenia po zastosowaniu sterowania opt
 [t, x] = rk4_tau(@rownania_penalty,x0,dtau,cn,h0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,u);
 figure(1);

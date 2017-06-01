@@ -11,7 +11,7 @@ for i=1:maxit
     u = u0+step;
 %     [Qnew,~] = testowa(u);
     [Qnew,~] = SimSegway(x0,dtau,cn,h0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,u);
-    if(Qnew-Qlast>1e-8)
+    if(Qnew-Qlast>-1e-8)
         break;
     end
     step = wspEksp*step;
