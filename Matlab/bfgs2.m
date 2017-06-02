@@ -6,9 +6,9 @@ i = 1;
 tabU = zeros(iter,n);
 tabQ = zeros(iter,1);
 R=1;
-stepLen0=1e-0;
+stepLen0=1;
 wspEksp=4;
-wspKontr=0.9;
+wspKontr=0.5;
 [Q,dQdU] = SimSegway(x0,dtau,cn,h0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,u_max,u);
 dQdU(u==u_max & dQdU<0)=0;
 dQdU(u==-u_max & dQdU>0)=0;
@@ -30,15 +30,16 @@ while (i<iter && norm(dQdU)>eps)
 %    disp(['Iloczyn skalarny: ' num2str(-d'*dQdU)]);
    
 %    [u,success]=LineSearchMin2(u,d,stepLen0,wspEksp,wspKontr,maxit,Q,x0,dtau,cn,h0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K);
-   [u_best,Q_best,EkspSuccess] = ekspansja(u,d,stepLen0,wspEksp,wspKontr,maxit,Q,x0,dtau,cn,h0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,u_max);
-   u = u_best(2,:)';
-%    if(~EkspSuccess)
-%        [u_best,Q_best,KontrSuccess] = kontrakcja(u,d,stepLen0,wspEksp,wspKontr,maxit,Q,x0,dtau,cn,h0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K);
-%        disp('kontrakcja');
-%    end
-%    success = EkspSuccess || KontrSuccess;
+    [u_best,Q_best,EkspSuccess] = ekspansja(u,d,stepLen0,wspEksp,wspKontr,maxit,Q,x0,dtau,cn,h0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,u_max);
+    u = u_best(2,:)';
+    if(~EkspSuccess)
+        [u_best,Q_best,KontrSuccess] = kontrakcja(u,d,stepLen0,wspEksp,wspKontr,maxit,Q,x0,dtau,cn,h0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,u_max);
+        u = u_best;
+        disp('kontrakcja');
+    end
+    success = EkspSuccess || KontrSuccess;
    
-   success = EkspSuccess;
+%   success = EkspSuccess;
 %    u = u_best(2,:)';
     u(u>u_max)=u_max;
     u(u<-u_max)=-u_max;

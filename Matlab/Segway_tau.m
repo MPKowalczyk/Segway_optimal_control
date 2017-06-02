@@ -19,7 +19,7 @@ Va = 0;
 g = 9.81;
 Iw = 0.1;
 Mw = 0.5;
-u_max=38;
+u_max=20;
 
 %% Wspó³czynniki modelu matematycznego
 c1 = Mp*l^2 + Ip;
@@ -34,17 +34,18 @@ c9 = Mp*l;
 c10 = -Mp*l;
 c11 = c7*c1/c5 + c9;
 fi_max=pi/6;
-K=1e3;
+K=0.3e1;
 
 %% Symulacja stanu
 N = 16;
 tau = linspace(0,Tsim,N)';
 dtau = diff(tau);
-u = ones(size(dtau));
+%u = u_max*(2*rand(size(dtau))-1);
+u=u_max*ones(size(dtau));
 h0 = 0.001;
 n = ceil(dtau/h0);
 cn = cumsum([1;n]);
-x0 = [-2;0;0*pi/180;0;0];
+x0 = [-1;0;0*pi/180;0;0];
 [t, x] = rk4_tau(@rownania_penalty,x0,dtau,cn,h0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,u);
 
 %% Równania sprzê¿one
