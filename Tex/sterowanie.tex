@@ -3,7 +3,7 @@
 
 Podstawowym celem sterowania jest utrzymanie pojazdu w pozycji pionowej. Jest to niestabilny punkt równowagi. Sterowanie powinno uwzględniać ograniczenie maksymalnego wychylenia obiektu z tego położenia oraz maksymalne napięcie podawane na silnik prądu stałego. Oprócz tego wymaga się, żeby pojazd przemieścił się o zadaną odległość przy jak najmniejszym zużyciu energii. Wybrano więc następujący wskaźnik jakości sterowania:
 \begin{equation}
-Q=x^T(T)Ax(T)%+\int\limits_{0}^{T}Ru(t)^2dt
+Q=x^T(T)x(T)
 \end{equation}
 \noindent Gdzie:\newline
 \(x\) jest stanem obiektu.\newline
@@ -22,10 +22,10 @@ Należy wziąć pod uwagę również ograniczenia:
 \noindent Gdzie:\newline
 \(u\) jest wejściem obiektu (napięciem podawanym na silnik).\newline
 \(u_{max}\) jest maksymalnym napięciem, które można podać na silnik.\newline
-\(\phi_{max}\) jest maksymalnym wychyleniem pojazdu z niestabilnego punktu równowagi.
+\(\phi_{max}\) jest maksymalnym wychyleniem pojazdu z położenia pionowego.
 
 \paragraph*{}
-Ograniczenie \eqref{eq:u_max} odnosi się do fizycznego ograniczenia napięciem akumulatora urządzenie. Nie jest możliwe podanie większego napięcia. Ograniczenie \eqref{eq:phi_max} ma na celu zabezpieczenie pojazdu przed upadkiem oraz zrzuceniem transportowanego obiektu. Nierówność \eqref{eq:phi_max} została uwzględniona w zadaniu za pomocą funkcji kary. Zadanie więc zostało zmodyfikowane do następującej postaci:
+Ograniczenie \eqref{eq:u_max} odnosi się do fizycznego ograniczenia napięciem akumulatora urządzenia. Nie jest możliwe podanie większego napięcia. Ograniczenie \eqref{eq:phi_max} ma na celu zabezpieczenie pojazdu przed upadkiem oraz zrzuceniem transportowanego obiektu. Nierówność \eqref{eq:phi_max} została uwzględniona w zadaniu za pomocą funkcji kary. Zadanie więc zostało zmodyfikowane do następującej postaci:
 \begin{equation}
 \begin{aligned}
 \dot x_1 &=x_2\\
@@ -33,17 +33,22 @@ Ograniczenie \eqref{eq:u_max} odnosi się do fizycznego ograniczenia napięciem 
 \dot x_3 &=x_4\\
 \dot x_4 &=\frac{L}{M}\\
 \dot x_5 &=f_5\\
+Q &=x^T(T)x(T)
+\end{aligned}
+\label{eq:ss_penalty}
+\end{equation}
+\noindent Gdzie:
+\begin{equation}
+\begin{aligned}
 L &=(k_5\cos x_3+k_6)u+(k_7\cos x_3+k_8)x_2+k_9\sin x_3+k_{10}x_4^2\sin x_3\cos x_3\\
 M &=k_{11}+k_{12}\cos ^2x_3\\
 f_5 &=
 	\begin{cases}
 	\frac{(x_3-\phi_{max})^2}{2}, & \text{kiedy } \phi_{max}\leqslant x_3\\
 	0, & \text{kiedy } -\phi_{max}<x_3<\phi_{max}\\
-	\frac{(\phi_{max}-x_3)^2}{2}, & \text{kiedy } x_3\leqslant -\phi_{max}
-	\end{cases}\\
-Q &=x^T(T)Ax(T)
+	\frac{(\phi_{max}+x_3)^2}{2}, & \text{kiedy } x_3\leqslant -\phi_{max}
+	\end{cases}
 \end{aligned}
-\label{eq:ss_penalty}
 \end{equation}
 Dla zadania opisanego równaniami \eqref{eq:ss_penalty} wyznaczono równania sprzężone:
 \begin{equation}
@@ -55,8 +60,8 @@ Dla zadania opisanego równaniami \eqref{eq:ss_penalty} wyznaczono równania spr
 \begin{equation}
 \frac{\partial f}{\partial x}=\begin{bmatrix}
 0 & 0 & 0 & 0 & 0\\
-1 & k_1 & 0 & 0 & 0\\
-0 & k_3\frac{\partial S}{\partial x_3}\cos x_3-k_2S\sin x_3 & 0 & \frac{\partial S}{\partial x_3} & \frac{f_5}{x_3}\\
+1 & k_2\cos(x_3)\frac{\partial S}{\partial x_2}+k_1 & 0 & \frac{\partial S}{\partial x_2} & 0\\
+0 & k_3x_4^2\cos x_3+k_2\frac{\partial S}{\partial x_3}\cos x_3-k_2S\sin x_3 & 0 & \frac{\partial S}{\partial x_3} & \frac{f_5}{x_3}\\
 0 & 2k_3x_4\sin x_3+k_2\frac{\partial S}{x_4}\cos x_3 & 1 & \frac{\partial S}{\partial x_4} & 0\\
 0 & 0 & 0 & 0 & 0
 \end{bmatrix}
@@ -68,6 +73,8 @@ Dla zadania opisanego równaniami \eqref{eq:ss_penalty} wyznaczono równania spr
 	\begin{cases}
 	x_3-\phi_{max}, & \text{kiedy } \phi_{max}\leqslant x_3\\
 	0, & \text{kiedy } -\phi_{max}<x_3<\phi_{max}\\
-	x_3-\phi_{max}, & \text{kiedy } x_3\leqslant -\phi_{max}
+	-(x_3+\phi_{max}), & \text{kiedy } x_3\leqslant -\phi_{max}
 	\end{cases}
 \end{equation}
+
+%TODO Sprawdzenie równań sprzężonych.
