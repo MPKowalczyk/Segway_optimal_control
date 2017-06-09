@@ -4,7 +4,7 @@ close all;
 format long e;
 format compact;
 %% Parametry symulacji
-Tsim=1;
+Tsim=6;
 fs=1e3;
 
 %% Parametry obiektu sterowania
@@ -33,8 +33,8 @@ c8 = 2*km*ke/(R*r^2);
 c9 = Mp*l;
 c10 = -Mp*l;
 c11 = c7*c1/c5 + c9;
-fi_max=pi/6;
-K=0.3e1;
+fi_max=pi/18;
+K=0.3e3;
 
 %% Symulacja stanu
 N = 16;
@@ -45,7 +45,7 @@ u=u_max*ones(size(dtau));
 h0 = 0.001;
 n = ceil(dtau/h0);
 cn = cumsum([1;n]);
-x0 = [-1;0;0*pi/180;0;0];
+x0 = [-5;0;-15*pi/180;0;0];
 [t, x] = rk4_tau(@rownania_penalty,x0,dtau,cn,h0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,u);
 
 %% Równania sprzê¿one

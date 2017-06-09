@@ -44,9 +44,9 @@ L &=(k_5\cos x_3+k_6)u+(k_7\cos x_3+k_8)x_2+k_9\sin x_3+k_{10}x_4^2\sin x_3\cos 
 M &=k_{11}+k_{12}\cos ^2x_3\\
 f_5 &=
 	\begin{cases}
-	\frac{(x_3-\phi_{max})^2}{2}, & \text{kiedy } \phi_{max}\leqslant x_3\\
+	\frac{K(x_3-\phi_{max})^2}{2}, & \text{kiedy } \phi_{max}\leqslant x_3\\
 	0, & \text{kiedy } -\phi_{max}<x_3<\phi_{max}\\
-	\frac{(\phi_{max}+x_3)^2}{2}, & \text{kiedy } x_3\leqslant -\phi_{max}
+	\frac{K(\phi_{max}+x_3)^2}{2}, & \text{kiedy } x_3\leqslant -\phi_{max}
 	\end{cases}
 \end{aligned}
 \end{equation}
@@ -71,10 +71,14 @@ Dla zadania opisanego równaniami \eqref{eq:ss_penalty} wyznaczono równania spr
 \begin{equation}
 \frac{\partial f_5}{\partial x_3}=
 	\begin{cases}
-	x_3-\phi_{max}, & \text{kiedy } \phi_{max}\leqslant x_3\\
+	K(x_3-\phi_{max}), & \text{kiedy } \phi_{max}\leqslant x_3\\
 	0, & \text{kiedy } -\phi_{max}<x_3<\phi_{max}\\
-	-(x_3+\phi_{max}), & \text{kiedy } x_3\leqslant -\phi_{max}
+	K(x_3+\phi_{max}), & \text{kiedy } x_3\leqslant -\phi_{max}
 	\end{cases}
 \end{equation}
 
-%TODO Sprawdzenie równań sprzężonych.
+Wiadomo, że równania sprzężone spełniają następujące równanie:
+\begin{equation}
+\frac{\partial Q(u,x(0)}{\partial x(0)}=-\psi(0)
+\end{equation}
+Postanowiono wykorzystać tę równość do sprawdzenia poprawności wyznaczonych równań sprzężonych. W tym celu konieczne było rozwiązanie równań sprzężonych do tyłu w celu wyznaczenia wartości \(-\psi(0)\). Pochodna \(\frac{\partial Q(u,x(0)}{\partial x(0)}\) została przybliżona za pomocą ilorazów różnicowych.

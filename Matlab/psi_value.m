@@ -23,8 +23,15 @@ dM_x3=-k12*sin(2*x(3));
 dS_x2=dL_x2/M;
 dS_x3=dL_x3/M-L/M^2*dM_x3;
 dS_x4=dL_x4/M;
-if abs(x(3))>fi_max
-    df5_x3=K*(abs(x(3))-fi_max);
+% if abs(x(3))>fi_max
+%     df5_x3=K*(abs(x(3))-fi_max);
+% else
+%     df5_x3=0;
+% end
+if x(3)>fi_max
+    df5_x3=K*(x(3)-fi_max);
+elseif x(3)<-fi_max
+    df5_x3=K*(x(3)+fi_max);
 else
     df5_x3=0;
 end

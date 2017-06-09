@@ -7,7 +7,7 @@ tabU = zeros(iter,n);
 tabQ = zeros(iter,1);
 R=1;
 stepLen0=1;
-wspEksp=4;
+wspEksp=2;
 wspKontr=0.5;
 [Q,dQdU] = SimSegway(x0,dtau,cn,h0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,u_max,u);
 dQdU(u==u_max & dQdU<0)=0;
