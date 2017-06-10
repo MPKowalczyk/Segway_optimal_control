@@ -76,9 +76,31 @@ Dla zadania opisanego równaniami \eqref{eq:ss_penalty} wyznaczono równania spr
 	K(x_3+\phi_{max}), & \text{kiedy } x_3\leqslant -\phi_{max}
 	\end{cases}
 \end{equation}
-
+Warunek końcowy równań sprzężonych jest następujący:
+\begin{equation}
+\psi(T)=-\frac{\partial Q}{\partial x(T)}
+\end{equation}
 Wiadomo, że równania sprzężone spełniają następujące równanie:
 \begin{equation}
 \frac{\partial Q(u,x(0)}{\partial x(0)}=-\psi(0)
+\label{eq:check_psi}
 \end{equation}
-Postanowiono wykorzystać tę równość do sprawdzenia poprawności wyznaczonych równań sprzężonych. W tym celu konieczne było rozwiązanie równań sprzężonych do tyłu w celu wyznaczenia wartości \(-\psi(0)\). Pochodna \(\frac{\partial Q(u,x(0)}{\partial x(0)}\) została przybliżona za pomocą ilorazów różnicowych.
+Postanowiono wykorzystać tę równość do sprawdzenia poprawności wyznaczonych równań sprzężonych. W tym celu konieczne było rozwiązanie równań sprzężonych do tyłu w celu wyznaczenia wartości \(-\psi(0)\). Pochodna \(\frac{\partial Q(u,x(0))}{\partial x(0)}\) została przybliżona za pomocą ilorazów różnicowych:
+\begin{equation}
+\frac{\partial Q(u,x(0))}{\partial x_k(0)}\approx\frac{Q(u,x_1(0),\dots, x_k(0)+\epsilon,\dots,x_n(0))}{\epsilon}
+\end{equation}
+\noindent Gdzie:\newline
+\(\epsilon\) jest bardzo małym przyrostem (przyjmowano \(\epsilon=10^{-7}\)).
+\paragraph*{}
+Dla różnych przypadków testowych (różne warunki początkowe i ograniczenia) sprawdzano błąd równości \eqref{eq:check_psi}. Przykładowy błąd dla prostego zadania testowego wynosi:
+\begin{equation}
+\frac{\partial Q(u,x(0)}{\partial x(0)}+\psi(0)=
+\begin{bmatrix}
+5.14\cdot 10^{-8}\\
+2.27\cdot 10^{-7}\\
+1.87\cdot 10^{-5}\\
+2.96\cdot 10^{-6}\\
+-1.63\cdot 10^{-9}
+\end{bmatrix}
+\end{equation}
+Błędy są bardzo małe. Na podstawie powyższego wyniku stwierdzono, że wyznaczone równania sprzężone są poprawne.

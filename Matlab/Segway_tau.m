@@ -1,14 +1,14 @@
 % Problem sterowania optymalnego dla pojazdu typu Segway.
-clear all;
+%clear all;
 close all;
 format long e;
 format compact;
 %% Parametry symulacji
-Tsim=6;
+Tsim=1;
 fs=1e3;
 
 %% Parametry obiektu sterowania
-Mp = 10;
+Mp = 10;        
 l = 1;
 Ip = 10;
 km = 0.9;
@@ -34,18 +34,18 @@ c9 = Mp*l;
 c10 = -Mp*l;
 c11 = c7*c1/c5 + c9;
 fi_max=pi/18;
-K=0.3e3;
+K=0.3e1;
 
 %% Symulacja stanu
 N = 16;
 tau = linspace(0,Tsim,N)';
 dtau = diff(tau);
 %u = u_max*(2*rand(size(dtau))-1);
-u=u_max*ones(size(dtau));
+%u=u_max*ones(size(dtau));
 h0 = 0.001;
 n = ceil(dtau/h0);
 cn = cumsum([1;n]);
-x0 = [-5;0;-15*pi/180;0;0];
+x0 = [-2;0;0*pi/180;0;0];
 [t, x] = rk4_tau(@rownania_penalty,x0,dtau,cn,h0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,u);
 
 %% Równania sprzê¿one
@@ -60,8 +60,8 @@ Q0=cost(@rownania_penalty,x0,dtau,cn,h0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,
 for i=1:5
     dQ(i)=(cost(@rownania_penalty,x0+epsilon(:,i),dtau,cn,h0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,u)-Q0)/de;
 end
-dQ
-psi(1,:)'
+%dQ
+%psi(1,:)'
 roznica_sprzezone = dQ + psi(1,:)'
 %% Sprawdzenie gradientów
 eps = 1e-7;
