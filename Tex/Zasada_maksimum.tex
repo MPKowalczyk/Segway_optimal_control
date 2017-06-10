@@ -1,0 +1,41 @@
+\section{Zasada maksimum Pontriagina}
+\label{sec:zasada_max}
+
+W celu wyznaczenia sterowania optymalnego bazowano na teorii sformułowanej przez rosyjskiego matematyka, Lewa Pontriagina, w 1956 roku. Zasada maksimum Pontriagina okazuje się mieć duże znaczenie w praktyce co czyni ją szczególnie cenną. Rozwiązywanie postawionego problemu rozpoczęto od jego matematycznego sformułowania. Dynamika pojazdu opisana jest równaniami różniczkowymi postaci:
+\begin{equation}
+\dot{x}(t)=f(x(t),u(t))
+\end{equation}
+gdzie $x(t)\in\textbf{R}^{4}$ oznacza stan systemu: \newline
+$x_1(t)$ jest położeniem Segwaya wyrażonym w metrach,\newline
+$x_2(t)$ jest prędkością liniową Segwaya wyrażoną w metrach na sekundę,\newline
+$x_3(t)$ jest położeniem kątowym Segwaya wyrażonym w radianach,\newline
+$x_4(t)$ jest prędkością kątową Segwaya wyrażoną w radianach na sekundę,\newline
+\newline
+$u(t)\in\textbf{R}$ oznacza sterowanie (napięcie podawane na silnik DC). \newline
+Punkt początkowy $x(0)=x_0$ jest ustalony. Rozwiązanie równań stanu nie zależy wprost od czasu - problem jest stacjonarny. Za zmienną decyzyjną przyjęto sterowanie, które ma postać funkcji przedziałami ciągłej. Ilość przedziałów zależy od wyboru ilości węzłów strukturalnych, która traktowana będzie jako parametr wywołania programu wyliczającego sterowanie optymalne. Wartości sterowania należą do zbioru dopuszczalnego, posiadającego kres górny oraz dolny. Założenie to uznajemy za konieczne, w przeciwnym wypadku należałoby spodziewać się, że sterowanie w kolejnych przedziałach przyjmowałoby bardzo duże wartości. Takie rozwiązanie nie miałoby fizycznego sensu. Wskaźnik jakości jest postaci:
+\begin{equation}
+Q(u)=q1(x(T))+\int\limits_{0}^{T}p(x_3(t))dt
+\end{equation}
+gdzie $\int\limits_{0}^{T}p(x_3(t))dt\geq0$ wyraża karę za nadmierne odchylenie Segwaya od niestabilnego punktu równowagi, natomiast $T$ oznacza ustaloną chwilę końcową. Za najbardziej interesujące rozwiązanie uznano takie, w którym T jest jak najmniejsze (przy równoczesnym braku istotnego pogorszenia wskaźnika jakości). Postanowiono zastosować metodę kontynuacyjną. \newline
+Problem o tak sformułowanym wskaźniku jakości nosi nazwę Bolzy. Poprzez prosty zabieg matematyczny sprowadzono powyższe równanie do postaci Mayera. W tym celu rozszerzono przestrzeń stanu systemu o kolejną zmienną:
+\begin{equation}
+\begin{aligned}
+x_5(t)&=&\int\limits_{0}^{T}p(x_3(t))dt \\
+\dot{x}_5(t)&=&p(x_3(t))\\
+x_5(0)&=&0\\
+Q(u)&=&q(x(T))
+\end{aligned}
+\end{equation}
+Korzystając z przekształconej postaci wskaźnika zapisano prehamiltonian
+\begin{equation}
+H(\psi(t),x(t),u(t)=\psi(t)^Tf(x(t),u(t))
+\end{equation}
+gdzie $\psi$ symbolizuje funkcję sprzężoną wyznaczoną z równania
+\begin{equation}
+\dot \psi=-\frac{\partial f}{\partial x}\psi
+\end{equation}
+z warunkiem końcowym
+\begin{equation}
+\psi(T)=-\frac{\partial q(x(T))}{\partial x(T)}
+\end{equation}
+
