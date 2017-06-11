@@ -103,4 +103,19 @@ Dla różnych przypadków testowych (różne warunki początkowe i ograniczenia)
 -1.63\cdot 10^{-9}
 \end{bmatrix}
 \end{equation}
-Błędy są bardzo małe. Na podstawie powyższego wyniku stwierdzono, że wyznaczone równania sprzężone są poprawne.
+Błędy są bardzo małe. Na podstawie powyższego wyniku stwierdzono, że wyznaczone równania sprzężone są poprawne.\\
+W trakcie numerycznego rozwiązywania wstecz równań sprzężonych wyliczano również gradient \eqref{eq:Grad}.
+\begin{equation}
+\begin{aligned}
+&z(t) = \frac{\partial Q}{\partial u_i}=-\int\limits_{t_i}^{t_{i+1}}\frac{\partial H}{\partial u}dt&\\
+&\dot{z}(t) = \frac{\partial H}{\partial u_i}, t\in [t_i,t_{i+1}]&\\
+&z(t_{i+1}) = 0
+\label{eq:Grad}
+\end{aligned}
+\end{equation}
+Wymiar wektora \textit{z} jest zależny od wyboru liczby węzłów strukturalnych. Sprawdzenia poprawności wyliczonych gradientów dokonano poprzez porównanie otrzymanych wyników z ilorazem różnicowym \eqref{eq:checkGrad}.
+\begin{equation}
+\label{eq:checkGrad}
+\frac{Q(u+\Delta u)-Q(u)}{\Delta u}
+\end{equation}
+Otrzymane wyniki były zgodne z dokładnością do czwartego miejsca po przecinku.
