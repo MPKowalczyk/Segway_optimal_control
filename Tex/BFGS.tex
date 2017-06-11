@@ -1,0 +1,49 @@
+\section{Algorytm BFGS}
+\label{sec:bfgs}
+
+Sprawdziwszy poprawność funkcji wyliczającej wartość funkcji kosztu oraz jej gradient, przystąpiono do  implementacji algorytmu optymalizującego. Zdecydowano się na metodę gradientową ze względu na jej nieporównywalnie szybszą zbieżność w stosunku do metod bezgradientowych. Wybrano metodę BFGS, która należy do grupy metod kwazi-newtonowskich. Ich główną zaletą jest brak konieczności wyliczania hesjanu w każdej iteracji, co bywa często czasochłonne oraz skomplikowane numerycznie (metoda Newtona). Schemat algorytmu prezentuje się następująco:
+%1. Wylosuj początkową aproksymację schodkową sterowania.\\
+%2. Wylicz wartość oraz gradient funkcji kosztu.\\
+%3. Sprawdź warunki stopu.\\
+%4. Jeżeli to pierwsza iteracja lub nie znaleziono lepszego sterowania na kierunku to szukaj na kierunku najszybszego spadku (reset metody). Wróć do 2.\\
+%5. Wyznacz nowy kierunek poszukiwań według następującej reguły:
+%\begin{equation}
+%\begin{aligned}
+%s &=& u - uPrev\\
+%r &=& dQdU - g\\
+%W &=& W + \dfrac{rr^T}{s^Tr} - \dfrac{Wss^TW}{s^TWs}\\
+%d &=& -W^{-1}dQdU;
+%\end{aligned}
+%\end{equation}
+%gdzie \textit{uPrev} oraz \textit{g} to kolejno sterowanie i gradient z poprzedniej iteracji, \textit{W} oznacza przybliżony hesjan zgodnie z ideą metody BFGS, natomiast \textit{d} to wyliczony nowy kierunek poszukiwań.\\
+%6. Szukaj na kierunku. Wróć do 2.
+\begin{enumerate}
+\item Wylosuj początkową aproksymację schodkową sterowania.
+\item Wylicz wartość oraz gradient funkcji kosztu.
+\item Sprawdź warunki stopu.
+\item Jeżeli to pierwsza iteracja lub nie znaleziono lepszego sterowania na kierunku to szukaj na kierunku najszybszego spadku (reset metody). Wróć do 2.
+\item Wyznacz nowy kierunek poszukiwań według następującej reguły:
+\begin{equation}
+\begin{aligned}
+s &=& u - uPrev\\
+r &=& dQdU - g\\
+W &=& W + \dfrac{rr^T}{s^Tr} - \dfrac{Wss^TW}{s^TWs}\\
+d &=& -W^{-1}dQdU;
+\end{aligned}
+\end{equation}
+gdzie \textit{uPrev} oraz \textit{g} to kolejno sterowanie i gradient z poprzedniej iteracji, \textit{W} oznacza przybliżony hesjan zgodnie z ideą metody BFGS, natomiast \textit{d} to wyliczony nowy kierunek poszukiwań.
+\item Szukaj na kierunku. Wróć do 2.
+
+\end{enumerate}
+
+\subsection{Warunki stopu}
+Algorytm powinien zakończyć swoje działanie w momencie kiedy spełniony zostanie co najmniej jeden z dwóch warunków: 
+\begin{enumerate}
+\item Wykorzystano maksymalną, z góry ustaloną liczbę iteracji.
+\item Norma gradientu jest mniejsza od przyjętego epsilon.
+\end{enumerate}
+W przypadku kiedy gradient okazuje się być wystarczająco mały, można oczekiwać, że wyznaczono rozwiązanie znajdujące się blisko minimum lokalnego. Dodatkowo przy bardzo małym gradiencie próżno spodziewać się znaczącego polepszenia funkcji kosztu. Czas poświęcony na kolejne iteracje nie byłby współmierny do oczekiwanej poprawy. Jest to jedna z cech algorytmów gradientowych. W przypadku zakończenia algorytmu z powodu wyczerpania iteracji warto zwiększyć ich liczbę w kolejnym uruchomieniu programu, aby sprawdzić czy kolejne rozwiązania nie wprowadziłyby znaczącej poprawy.
+
+\subsection{Poszukiwanie na kierunku}
+Do poszukiwania lepszych rozwiązań na wyznaczonym kierunku użyto dwóch wzajemnie uzupełniających się metod - ekspansji oraz kontrakcji. Ekspansja polega na uformowaniu geometrycznego ciągu przyrostów, którego iloraz nazywany jest współczynnikiem ekspansji (większy od 1). Ekspansja kończy swoje działanie w momencie kiedy kolejne rozwiązanie jest gorsze od poprzedniego lub kiedy wyczerpie się maksymalną liczbę iteracji. W przypadku, kiedy początkowa długość kroku generuje pogorszenie wskaźnika jakości przeprowadza się kontrakcję, która polega na iteracyjny zawężaniu przedziału do momentu uzyskania pierwszej poprawy. Współczynnik kontrakcji jest mniejszy od jedynki. Ekspansja pozwala na znaczną poprawę na kierunki, natomiast kontrakcja zapewnia jakąkolwiek poprawę (o ile taka istnieje na badanym kierunku).
+%TODO we wnioskach o doborze kroku i o znaczeniu poszukiwania na k. w czasie
