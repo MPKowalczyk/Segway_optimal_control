@@ -1,0 +1,18 @@
+\section{Opis używanego programu}
+\label{sec:opis_uzywanego_programu}
+
+Do wyznaczenia sterowania optymalnego wykorzystano oprogramowania \textit{Matlab}. W tym celu napisano główny skrypt, który wywoływał konieczne do wykonania zadania. W pierwszej części skryptu ustawiane są parametry symulacji, takie jak czas trwania i częstotliwość próbkowania.
+\paragraph*{}
+W drugiej części skryptu podawane są parametry symulowanego obiektu, takie jak:
+\begin{itemize}
+\item masa Segway'a
+\item moment bezwładności
+\item stała elektromotoryczna silnika
+\item stała momentu silnika
+\item maksymalne napięcie podawane na silnik
+\end{itemize}
+Następnie na podstawie tych parametrów wyliczone zostają współczynniki \(k_1,\dots,k_{12}\) modelu matematycznego obiektu \eqref{eq:nonlinear_ss}.
+\paragraph*{}
+Kolejna część programu wykorzystuje algorytm RK4 do rozwiązania numerycznego równań różniczkowych modelu. Następnie wykorzystano ten sam algorytm do rozwiązania równań sprzężonych w tył. Poprawność równań sprzężonych jest również w tej części skryptu sprawdzona.
+\paragraph*{}
+W ostatnim etapie skryptu uruchamiany jest algorytm optymalizacji BFGS (Broyden-Fletcher-Goldfarb-Shanno). Wyznacza on sterowanie, które minimalizuje wybrany wskaźnik jakości. Funkcja realizująca algorytm BFGS wywołuje funkcję poszukiwania na kierunku, która składa się z metody kontrakcji i ekspansji. Przebieg algorytmu optymalizacji (sterowanie w kolejnych iteracjach) jest zapisywany. Dla znalezionego sterowania optymalnego wyznaczany jest przebieg zmiennych stanu obiektu. Przebiegi zmiennych stanu dla wyznaczonego sterowania oraz samo sterowania zostają następnie pokazane na wykresach.

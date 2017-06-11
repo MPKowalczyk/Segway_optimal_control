@@ -1,10 +1,10 @@
 % Problem sterowania optymalnego dla pojazdu typu Segway.
-%clear all;
+clear all;
 close all;
 format long e;
 format compact;
 %% Parametry symulacji
-Tsim=1;
+Tsim=2.5;
 fs=1e3;
 
 %% Parametry obiektu sterowania
@@ -19,7 +19,7 @@ Va = 0;
 g = 9.81;
 Iw = 0.1;
 Mw = 0.5;
-u_max=20;
+u_max=13;
 
 %% Wspó³czynniki modelu matematycznego
 c1 = Mp*l^2 + Ip;
@@ -34,13 +34,13 @@ c9 = Mp*l;
 c10 = -Mp*l;
 c11 = c7*c1/c5 + c9;
 fi_max=pi/18;
-K=0.3e1;
+K=0.3e2;
 
 %% Symulacja stanu
 N = 16;
 tau = linspace(0,Tsim,N)';
 dtau = diff(tau);
-%u = u_max*(2*rand(size(dtau))-1);
+u = u_max*(2*rand(size(dtau))-1);
 %u=u_max*ones(size(dtau));
 h0 = 0.001;
 n = ceil(dtau/h0);
@@ -122,4 +122,5 @@ end
 plot(t,ster);
 xlabel('Czas [t]');
 ylabel('Sterowanie [V]');
+ylim([-u_max u_max]);
 grid on;
