@@ -25,15 +25,18 @@ Sprawdziwszy poprawność funkcji wyliczającej wartość funkcji kosztu oraz je
 \item Wyznacz nowy kierunek poszukiwań według następującej reguły:
 \begin{equation}
 \begin{aligned}
-s &=& u - uPrev\\
-r &=& dQdU - g\\
-W &=& W + \dfrac{rr^T}{s^Tr} - \dfrac{Wss^TW}{s^TWs}\\
-d &=& -W^{-1}dQdU;
+s &= u - u_{prev}\\
+r &= \frac{\partial Q}{\partial u} - g\\
+W &= W + \frac{rr^T}{s^Tr} - \frac{Wss^TW}{s^TWs}\\
+d &= -W^{-1}\frac{\partial Q}{\partial u};
 \end{aligned}
 \end{equation}
-gdzie \textit{uPrev} oraz \textit{g} to kolejno sterowanie i gradient z poprzedniej iteracji, \textit{W} oznacza przybliżony hesjan zgodnie z ideą metody BFGS, natomiast \textit{d} to wyliczony nowy kierunek poszukiwań.
-\item Szukaj na kierunku. Wróć do 2.
-
+\noindent Gdzie:\newline
+\(u_{prev}\) jest sterowaniem w poprzedniej iteracji.\newline
+\(g\) jest gradientem w poprzedniej iteracji.\newline
+\(W\) oznacza przybliżony hesjan zgodnie z ideą metody BFGS.\newline
+\(d\) jest nowym kierunkiem poszukiwań.
+\item Szukaj na kierunku. Wróć do kroku 2.
 \end{enumerate}
 
 \subsection{Warunki stopu}

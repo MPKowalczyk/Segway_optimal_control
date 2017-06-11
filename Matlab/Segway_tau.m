@@ -4,8 +4,9 @@ close all;
 format long e;
 format compact;
 %% Parametry symulacji
-Tsim=2.5;
+Tsim=2;%2.5;
 fs=1e3;
+pr_fig=0;
 
 %% Parametry obiektu sterowania
 Mp = 10;        
@@ -19,7 +20,7 @@ Va = 0;
 g = 9.81;
 Iw = 0.1;
 Mw = 0.5;
-u_max=13;
+u_max=8;%13;
 
 %% Wspó³czynniki modelu matematycznego
 c1 = Mp*l^2 + Ip;
@@ -42,10 +43,11 @@ tau = linspace(0,Tsim,N)';
 dtau = diff(tau);
 u = u_max*(2*rand(size(dtau))-1);
 %u=u_max*ones(size(dtau));
+%u=u_max*zeros(size(dtau));
 h0 = 0.001;
 n = ceil(dtau/h0);
 cn = cumsum([1;n]);
-x0 = [-2;0;0*pi/180;0;0];
+x0 = [0;0;0*pi/180;0;0];%[-2;0;0*pi/180;0;0];
 [t, x] = rk4_tau(@rownania_penalty,x0,dtau,cn,h0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,u);
 
 %% Równania sprzê¿one
@@ -75,7 +77,7 @@ end
 roznica_gradienty = dQdU - dQdU_check
 
 %% Optymalizacja
-iter=200;
+iter=300;
 e0=1e-8;
 tic;
 [u,tabU,tabQ]=bfgs2(iter,e0,x0,dtau,cn,h0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,u_max,u);
@@ -83,39 +85,59 @@ toc;
 %% wykres wychylenia po zastosowaniu sterowania opt
 [t, x] = rk4_tau(@rownania_penalty,x0,dtau,cn,h0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,u);
 figure(1);
-subplot(3,2,1);
+%subplot(3,2,1);
 plot(t,x(:,1));
 xlabel('Czas [t]');
 ylabel('Po³o¿enie [m]');
 grid on;
-% figure(2);
-subplot(3,2,2);
+if pr_fig
+    print('Figures/equ_pos','-depsc2');
+    close;
+end
+figure(2);
+%subplot(3,2,2);
 plot(t,x(:,2));
 xlabel('czas [t]');
 ylabel('prêdkoœæ liniowa [m/s]');
 grid on;
-% figure(3);
-subplot(3,2,3);
+if pr_fig
+    print('Figures/equ_vel','-depsc2');
+    close;
+end
+figure(3);
+%subplot(3,2,3);
 plot(t,x(:,3));
 hold on;
 plot(t,fi_max*ones(size(t)),'r',t,-fi_max*ones(size(t)),'r');
 xlabel('Czas [t]');
 ylabel('Wychylenie [rad]');
 grid on;
-% figure(4);
-subplot(3,2,4);
+if pr_fig
+    print('Figures/equ_ang','-depsc2');
+    close;
+end
+figure(4);
+%subplot(3,2,4);
 plot(t,x(:,4));
 xlabel('Czas [t]');
 ylabel('Prêdkoœæ k¹towa [rad/s]');
 grid on;
-% figure(5);
-subplot(3,2,5);
+if pr_fig
+    print('Figures/equ_ang_vel','-depsc2');
+    close;
+end
+figure(5);
+%subplot(3,2,5);
 plot(t,x(:,5));
 xlabel('Czas [t]');
 ylabel('Kara za wychylenie');
 grid on;
-% figure(6);
-subplot(3,2,6);
+if pr_fig
+    print('Figures/equ_pen','-depsc2');
+    close;
+end
+figure(6);
+%subplot(3,2,6);
 for i=1:N-1
     ster(cn(i):cn(i+1)) = ones(length(cn(i):cn(i+1)),1)*u(i);
 end
@@ -124,3 +146,7 @@ xlabel('Czas [t]');
 ylabel('Sterowanie [V]');
 ylim([-u_max u_max]);
 grid on;
+if pr_fig
+    print('Figures/equ_con','-depsc2');
+    close;
+end
