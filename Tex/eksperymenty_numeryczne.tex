@@ -13,11 +13,14 @@ x_0=\begin{bmatrix}
 0
 \end{bmatrix}
 \end{equation}
-Dla tego eksperymentu przyjęto następujące ograniczenia wychylenia oraz napięcia:
+Dla tego eksperymentu przyjęto następujące ograniczenia wychylenia, napięcia, współczynnik funkcji kary, liczbę węzłów strukturalnych oraz horyzont czasowy:
 \begin{equation}
 \begin{aligned}
 \phi_{max}&=\frac{\pi}{18}\\
 u_{max}&=8
+K&=20\\
+N&=16\\
+T_{sim}&=2
 \end{aligned}
 \end{equation}
 
@@ -38,6 +41,8 @@ u_{max}&=8
 	\label{fig:equ}
 \end{figure}
 
+Koszt dla sterowania pokazanego na rysunku \ref{fig:stab} wynosi około \(5.69 \cdot 10^{-16}\). Obiekt pod koniec symulacji znajdował się bardzo blisko zadanej pozycji. Dziwić może fakt, że obiekt został wytrącony z położenia równowagi, mimo, że znajdował się w nim już na początku symulacji.
+
 \newpage
 Następnym eksperymentem było zbadanie stabilizacji układu, gdy warunek początkowy nie znajduje się w punkcie równowagi. Wybrano następujący warunek początkowy:
 \begin{equation}
@@ -49,11 +54,14 @@ x_0=\begin{bmatrix}
 0
 \end{bmatrix}
 \end{equation}
-Dla tego eksperymentu przyjęto następujące ograniczenia wychylenia oraz napięcia:
+Dla tego eksperymentu przyjęto następujące ograniczenia wychylenia, napięcia, współczynnik funkcji kary, liczbę węzłów strukturalnych oraz horyzont czasowy:
 \begin{equation}
 \begin{aligned}
 \phi_{max}&=\frac{\pi}{18}\\
 u_{max}&=13
+K&=30\\
+N&=16\\
+T_{sim}&=2.5
 \end{aligned}
 \end{equation}
 
@@ -73,6 +81,8 @@ u_{max}&=13
 	\caption{Zadanie stabilizacji obiektu w punkcie równowagi dla innych warunków początkowych.}
 	\label{fig:stab}
 \end{figure}
+
+Koszt dla sterowania pokazanego na rysunku \ref{fig:stab} wynosi około \(1.72 \cdot 10^{-17}\). Świadczy to o tym, że obiekt jest pozycjonowanie bardzo dokładnie, a odchylenia od pozycji zadanej po upływie czasu symulacji są praktycznie zerowe.
 
 \newpage
 W kolejnym podejściu przetestowano zdolność systemu do pokonywania określonego dystansu z zachowaniem warunku co do maksymalnego wychylenia. Wybrano następujący warunek początkowy:
