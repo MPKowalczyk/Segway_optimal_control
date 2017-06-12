@@ -41,7 +41,27 @@ T_{sim}&=2
 	\label{fig:equ}
 \end{figure}
 
-Koszt dla sterowania pokazanego na rysunku \ref{fig:stab} wynosi około \(5.69 \cdot 10^{-16}\). Obiekt pod koniec symulacji znajdował się bardzo blisko zadanej pozycji. Dziwić może fakt, że obiekt został wytrącony z położenia równowagi, mimo, że znajdował się w nim już na początku symulacji.
+Koszt dla sterowania pokazanego na rysunku \ref{fig:stab} wynosi około \(5.69 \cdot 10^{-16}\). Obiekt pod koniec symulacji znajdował się bardzo blisko zadanej pozycji. Dziwić może fakt, że obiekt został wytrącony z położenia równowagi, mimo, że znajdował się w nim już na początku symulacji. Jest to spowodowane tym, że koszt rozwiązania zależy tylko od punktu końcowego. Otrzymane rozwiązanie (w którym obiekt przemieszcza się) jest więc jednym z wielu sterowań (jednym z wielu minimów lokalnych), które skutkowały zadaną pozycją po pływie zadanego czasu. W celu przeprowadzenia testu postanowiono wystartować algorytm z położenia równowagi, lecz początkowym rozwiązaniem byłoby sterowanie równe 0 w każdym przedziale dyskretyzacji.
+Rozwiązanie tego problemu zostało przedstawione na rysunku \ref{fig:zero}.
+
+\begin{figure}[H]
+	\centering
+	\subfloat{\includegraphics[width=2.8in]{Figures/zero_pos.eps}}
+	~~
+	\subfloat{\includegraphics[width=2.8in]{Figures/zero_vel.eps}}
+	
+	\subfloat{\includegraphics[width=2.8in]{Figures/zero_ang.eps}}
+	~~
+	\subfloat{\includegraphics[width=2.8in]{Figures/zero_ang_vel.eps}}
+	
+	\subfloat{\includegraphics[width=2.8in]{Figures/zero_pen.eps}}
+	~~
+	\subfloat{\includegraphics[width=2.8in]{Figures/zero_con.eps}}
+	\caption{Zadanie stabilizacji z zerowym rozwiązaniem początkowym.}
+	\label{fig:zero}
+\end{figure}
+
+Zgodnie z przewidywaniami w tym wypadku znalezionym rozwiązaniem było sterowanie równe zero przez cały czas symulacji. Było to minimum lokalne znajdujące się bardzo blisko początkowego rozwiązania.
 
 \newpage
 Następnym eksperymentem było zbadanie stabilizacji układu, gdy warunek początkowy nie znajduje się w punkcie równowagi. Wybrano następujący warunek początkowy:

@@ -1,12 +1,12 @@
 % Problem sterowania optymalnego dla pojazdu typu Segway.
-%clear all;
+clear all;
 close all;
 format long e;
 format compact;
 %% Parametry symulacji
 Tsim=2;
 fs=1e3;
-pr_fig=0;
+pr_fig=1;
 
 %% Parametry obiektu sterowania
 Mp = 10;        
@@ -41,9 +41,9 @@ K=0.3e2;
 N = 16;
 tau = linspace(0,Tsim,N)';
 dtau = diff(tau);
-u = u_max*(2*rand(size(dtau))-1);
+%u = u_max*(2*rand(size(dtau))-1);
 %u=u_max*ones(size(dtau));
-%u=u_max*zeros(size(dtau));
+u=u_max*zeros(size(dtau));
 h0 = 0.001;
 n = ceil(dtau/h0);
 cn = cumsum([1;n]);
@@ -91,7 +91,7 @@ xlabel('Czas [t]');
 ylabel('Po³o¿enie [m]');
 grid on;
 if pr_fig
-    print('Figures/equ_pos','-depsc2');
+    print('Figures/zero_pos','-depsc2');
     close;
 end
 figure(2);
@@ -101,7 +101,7 @@ xlabel('czas [t]');
 ylabel('prêdkoœæ liniowa [m/s]');
 grid on;
 if pr_fig
-    print('Figures/equ_vel','-depsc2');
+    print('Figures/zero_vel','-depsc2');
     close;
 end
 figure(3);
@@ -113,7 +113,7 @@ xlabel('Czas [t]');
 ylabel('Wychylenie [rad]');
 grid on;
 if pr_fig
-    print('Figures/equ_ang','-depsc2');
+    print('Figures/zero_ang','-depsc2');
     close;
 end
 figure(4);
@@ -123,7 +123,7 @@ xlabel('Czas [t]');
 ylabel('Prêdkoœæ k¹towa [rad/s]');
 grid on;
 if pr_fig
-    print('Figures/equ_ang_vel','-depsc2');
+    print('Figures/zero_ang_vel','-depsc2');
     close;
 end
 figure(5);
@@ -133,7 +133,7 @@ xlabel('Czas [t]');
 ylabel('Kara za wychylenie');
 grid on;
 if pr_fig
-    print('Figures/equ_pen','-depsc2');
+    print('Figures/zero_pen','-depsc2');
     close;
 end
 figure(6);
@@ -147,6 +147,6 @@ ylabel('Sterowanie [V]');
 ylim([-u_max u_max]);
 grid on;
 if pr_fig
-    print('Figures/equ_con','-depsc2');
+    print('Figures/zero_con','-depsc2');
     close;
 end
