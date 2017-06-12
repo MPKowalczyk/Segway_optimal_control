@@ -21,6 +21,8 @@ u_{max}&=8
 \end{aligned}
 \end{equation}
 
+
+
 \begin{figure}[!t]
 	\centering
 	\subfloat{\includegraphics[width=2.8in]{Figures/equ_pos.eps}}
@@ -34,3 +36,46 @@ u_{max}&=8
 	\caption{Zadanie stailizacji obiektu w punkcie równowagi.}
 	\label{fig:equ}
 \end{figure}
+\newpage
+W kolejnym podejściu przetestowano zdolność systemu do pokonywania określonego dystansu z zachowaniem warunku co do maksymalnego wychylenia. Wybrano następujący warunek początkowy:
+\begin{equation}
+x_0=\begin{bmatrix}
+-1\\
+0\\
+0\\
+0\\
+0
+\end{bmatrix}
+\end{equation}
+Przyjęto parametry:
+\begin{equation}
+\begin{aligned}
+\phi_{max}&=\frac{\pi}{18}\\
+u_{max}&=20\\
+K&=300\\
+N&=10
+\end{aligned}
+\end{equation}
+gdzie \textit{K} jest współczynnikiem kary za nadmierne wychylenie, natomiast \textit{N} oznacza liczę węzłów strukturalnych.\\
+Badano zachowania systemu dla różnych chwil końcowych. Najbardziej zadowalające wyniki otrzymana dla czasu $\textit{T}=1.6 s$ (\ref{fig:equ1}). Wskaźnik jakości osiągnął wartość\\ $Q(u^*)=3.31\cdot10^{-4}$.
+\begin{figure}[H]
+	\centering
+	\subfloat{\includegraphics[width=2.8in]{Figures/exp1/pos.eps}}
+	\subfloat{\includegraphics[width=2.8in]{Figures/exp1/vel.eps}}
+	
+	\subfloat{\includegraphics[width=2.8in]{Figures/exp1/ang.eps}}
+	\subfloat{\includegraphics[width=2.8in]{Figures/exp1/ang_vel.eps}}
+	
+	\subfloat{\includegraphics[width=2.8in]{Figures/exp1/pen.eps}}
+	\subfloat{\includegraphics[width=2.8in]{Figures/exp1/control.eps}}
+	\caption{Seqway pokonuje dystans 1 metra w czasie 1.6 sekundy.}
+	\label{fig:equ1}
+\end{figure}
+Przyjmując za rozwiązanie początkowe $u^*$ oraz zwiększając współczynnik kary $K=3\cdot10^6$ przeprowadzono kolejną symulację. Zauważono, że postać rozwiązanie nie zmieniła się znacząco. Kara za wychylenie zmalała o trzy rzędy, a nowy wskaźnik jakości wyniósł    $Q(u_2^*)=2.01\cdot10^{-4}$. W obu przypadkach zdecydowanie największy wpływ na wskaźnik jakości miało niezerowe wychylenie w chwili końcowej. Dostrzegając różnicę pomiędzy wskaźnikami jakości postanowiono podążyć dalej podobnym tokiem rozumowania. Po kilkukrotnym wywołaniu programu optymalizującego z nowo wyliczonymi rozwiązaniami otrzymano następującą postać sterowania (\ref{fig:ctrNew}):
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=4in]{Figures/exp1/controlNew.eps}
+	\caption{Sterowanie otrzymane w wyniku kilkukrotnej optymalizacji.}
+	\label{fig:ctrNew}
+\end{figure}
+Sterowanie wyraźnie bardziej opiera się na ograniczeniach. Finalna wartość wskaźnika jakości wyniosła $Q(u_f^*)=1.64\cdot10^{-4}$.
