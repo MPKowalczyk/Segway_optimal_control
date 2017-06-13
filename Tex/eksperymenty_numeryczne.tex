@@ -150,3 +150,42 @@ Przyjmując za rozwiązanie początkowe $u^*$ oraz zwiększając współczynnik 
 	\label{fig:ctrNew}
 \end{figure}
 Sterowanie wyraźnie bardziej opiera się na ograniczeniach. Finalna wartość wskaźnika jakości wyniosła $Q(u_f^*)=1.64\cdot10^{-4}$.
+\paragraph*{}
+Chcąc zbadać zdolność pojazdu do stabilizacji z warunku początkowego znajdującego się poza nominalnie dopuszczalnym wychyleniem, przeprowadzono następujący eksperyment (\ref{fig:equPen}):
+\begin{equation}
+x_0=\begin{bmatrix}
+0\\
+0\\
+\frac{15\pi}{180}\\
+0\\
+0
+\end{bmatrix}
+\end{equation}
+Przyjęto parametry:
+\begin{equation}
+\label{eg:ogr}
+\begin{aligned}
+\phi_{max}&=\frac{\pi}{18}\\
+u_{max}&=48\\
+K&=3\cdot10^6\\
+N&=16
+\end{aligned}
+\end{equation}
+
+\begin{figure}[H]
+	\centering
+	\subfloat{\includegraphics[width=2.8in]{Figures/exp2/hard_pos3.eps}}
+	~~
+	\subfloat{\includegraphics[width=2.8in]{Figures/exp2/hard_vel3.eps}}
+	
+	\subfloat{\includegraphics[width=2.8in]{Figures/exp2/hard_ang_vel3.eps}}
+	~~
+	\subfloat{\includegraphics[width=2.8in]{Figures/exp2/hard_ang3.eps}}
+	
+	\subfloat{\includegraphics[width=2.8in]{Figures/exp2/hard_pen3.eps}}
+	~~
+	\subfloat{\includegraphics[width=2.8in]{Figures/exp2/hard_con3.eps}}
+	\caption{Zadanie stabilizacji obiektu w punkcie równowagi.}
+	\label{fig:equPen}
+\end{figure}
+System dąży do jak najszybszego powrotu do przyjętej, niekaranej wartości wychylenia. Założono silnik generujący większy moment niż miało to miejsce w poprzednich próbach (\ref{eg:ogr}). Sterowanie w pierwszej chwili czasu jest maksymalne. Biorąc pod uwagę bezwładność Segway'a, sterowanie w kolejnej chwili czasu nie mogło pozostać maksymalne. Zgodnie z oczekiwaniami jedyna kara za nadmierne wychylenie naliczona została podczas pierwszych ułamków sekundy i stanowiła ona całkowitą wartość wskaźnika jakości w chwili końcowej, po upływie 2 sekund.
