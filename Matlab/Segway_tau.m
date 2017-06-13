@@ -1,5 +1,5 @@
 % Problem sterowania optymalnego dla pojazdu typu Segway.
-clear all;
+%clear all;
 close all;
 format long e;
 format compact;
@@ -20,7 +20,7 @@ Va = 0;
 g = 9.81;
 Iw = 0.1;
 Mw = 0.5;
-u_max=8;
+u_max=16;
 
 %% Wspó³czynniki modelu matematycznego
 c1 = Mp*l^2 + Ip;
@@ -35,7 +35,7 @@ c9 = Mp*l;
 c10 = -Mp*l;
 c11 = c7*c1/c5 + c9;
 fi_max=pi/18;
-K=0.3e2;
+K=0.3e7;
 
 %% Symulacja stanu
 N = 16;
@@ -43,11 +43,11 @@ tau = linspace(0,Tsim,N)';
 dtau = diff(tau);
 %u = u_max*(2*rand(size(dtau))-1);
 %u=u_max*ones(size(dtau));
-u=u_max*zeros(size(dtau));
+%u=u_max*zeros(size(dtau));
 h0 = 0.001;
 n = ceil(dtau/h0);
 cn = cumsum([1;n]);
-x0 = [0;0;0*pi/180;0;0];
+x0 = [4;0;5*pi/180;0;0];
 [t, x] = rk4_tau(@rownania_penalty,x0,dtau,cn,h0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,u);
 
 %% Równania sprzê¿one
@@ -91,7 +91,7 @@ xlabel('Czas [t]');
 ylabel('Po³o¿enie [m]');
 grid on;
 if pr_fig
-    print('Figures/zero_pos','-depsc2');
+    print('Figures/hard_pos','-depsc2');
     close;
 end
 figure(2);
@@ -101,7 +101,7 @@ xlabel('czas [t]');
 ylabel('prêdkoœæ liniowa [m/s]');
 grid on;
 if pr_fig
-    print('Figures/zero_vel','-depsc2');
+    print('Figures/hard_vel','-depsc2');
     close;
 end
 figure(3);
@@ -113,7 +113,7 @@ xlabel('Czas [t]');
 ylabel('Wychylenie [rad]');
 grid on;
 if pr_fig
-    print('Figures/zero_ang','-depsc2');
+    print('Figures/hard_ang','-depsc2');
     close;
 end
 figure(4);
@@ -123,7 +123,7 @@ xlabel('Czas [t]');
 ylabel('Prêdkoœæ k¹towa [rad/s]');
 grid on;
 if pr_fig
-    print('Figures/zero_ang_vel','-depsc2');
+    print('Figures/hard_ang_vel','-depsc2');
     close;
 end
 figure(5);
@@ -133,7 +133,7 @@ xlabel('Czas [t]');
 ylabel('Kara za wychylenie');
 grid on;
 if pr_fig
-    print('Figures/zero_pen','-depsc2');
+    print('Figures/hard_pen','-depsc2');
     close;
 end
 figure(6);
@@ -147,6 +147,6 @@ ylabel('Sterowanie [V]');
 ylim([-u_max u_max]);
 grid on;
 if pr_fig
-    print('Figures/zero_con','-depsc2');
+    print('Figures/hard_con','-depsc2');
     close;
 end
