@@ -9,5 +9,21 @@ Bardzo istotnym jeśli chodzi o czas wykonania programu okazał się być dobór
 
 Przeprowadzając dużą liczbę różnych eksperymentów zauważono wpływ wybory sterowania początkowego na efektywność działania algorytmu. Wygodnym pomysłem, który zapobiegał przed "utknięciem" programu, było losowanie rozwiązania początkowego w każdym przedziale strukturalnym z osobna.
 
+W przypadku omówionych w rozdziale \ref{sec:eksperymenty_numeryczne}. eksperymentów przyjęto wskaźnik jakości, który uwzględniał odchyłki wszystkich naturalnych zmiennych stanu od zera z równymi wagami. Przyglądając się zakresom wartości jakie każdy stan przyjmuje można dojść do wniosku, że przy dużej początkowej odległości (znacznie większej od 1) Segway'a od zera, stan ten staje się dominujący we wskaźniku jakości. Priorytetem systemu staje się zniwelowanie odległości tracąc na jakości sterowania pozostałymi stanami. Patrząc z inżynierskiego punktu widzenia, przy badaniu sterowania optymalnego na dłuższym horyzoncie czasowym (dla większej początkowej odchyłki położenia) należałoby wprowadzić wagi dla poszczególnych stanów we wskaźniku jakości. Taki zabieg znacząco poprawiłby jakość oraz komfort podróży pojazdem.
+\paragraph*{}
+Reasumując, realizacja niniejszej pracy składała się z poszczególnych etapów, wśród których można wymienić:
+\begin{itemize}
+\item Wstępną analizę literatury dotyczącej problematyki sterowania Segway'em
+\item Zapis oraz implementacja modelu matematycznego
+\item Implementację metody RK4 do rozwiązywania równań stanu oraz równań sprzężonych
+\item Sformułowanie zasady maksimum dla badanego problemu
+\item Wyprowadzenie równań sprzężonych
+\item Uzupełnienie algorytmu wyliczającego przebieg stanu oraz równania sprzężone o wyliczanie gradientów
+\item Implementację algorytmów poszukiwania na kierunku: ekspansji oraz kontrakcji
+\item Implementację algorytmu BFGS
+\item Analizę otrzymanych wyników
+\end{itemize}
+
+
 
 
