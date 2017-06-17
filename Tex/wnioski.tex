@@ -3,7 +3,7 @@
 
 Podczas realizacji niniejszej pracy napotkano na szereg trudności. Punktem przełomowym wydaje się być poprawne rozwiązanie równań sprzężonych. Bardzo pomocny na tym etapie okazał się przybornik \textit{Symbolic Math Toolbox} (pakiet \textit{MATLAB}).
 
-Dużo do myślenia pozostawiła implementacja użytych metod numerycznych. Skracając długość kroku algorytmu (RK4) otrzymane rezultaty coraz bardziej zbiegały do wzorcowych, zwróconych przez wbudowany solver, \textit{ode45}. W pewnym momencie różnica ta przestała maleć. Co więcej, czas wykonania programu wzrastał niewspółmiernie do otrzymanej poprawy. Dla dynamiki Segwaya wystarczający krok to 0.001 (\ref{fig:wychylenie_1khz}).
+Dużo do myślenia pozostawiła implementacja użytych metod numerycznych. W wyniki skracania długości kroku algorytmu RK4 rezultaty coraz bardziej zbiegały do wzorcowych, zwróconych przez wbudowany solver, \textit{ode45}. W pewnym momencie różnica ta przestała maleć. Co więcej, czas wykonania programu wzrastał niewspółmiernie do otrzymanej poprawy. Dla dynamiki Segwaya wystarczający krok to 0.001 (\ref{fig:wychylenie_1khz}).
 
 Bardzo istotnym jeśli chodzi o czas wykonania programu okazał się być dobór początkowego kroku poszukiwania na kierunku oraz współczynników  ekspansji i kontrakcji. Wytłumaczeniem tego zjawiska może być ogromna ilość wywołań przywołanych procedur w trakcie całego algorytmu wyliczającego sterowanie optymalne. Dla większości eksperymentów korzystano z parametrów: $StepZeroLength = 1$, $WspEksp = 3$, $WspKontr = 0.5$. Należy zwrócić uwagę na wielkości jakie przyjmuje zmienna decyzyjna, a także uważnie obserwować wpływ dokonywanych zmian.
 

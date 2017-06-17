@@ -25,10 +25,10 @@ Sprawdziwszy poprawność funkcji wyliczającej wartość funkcji kosztu oraz je
 \item Wyznacz nowy kierunek poszukiwań według następującej reguły:
 \begin{equation}
 \begin{aligned}
-s &= u - u_{prev}\\
-r &= \frac{\partial Q}{\partial u} - g\\
-W &= W + \frac{rr^T}{s^Tr} - \frac{Wss^TW}{s^TWs}\\
-d &= -W^{-1}\frac{\partial Q}{\partial u}
+s &:= u - u_{prev}\\
+r &:= \frac{\partial Q}{\partial u} - g\\
+W &:= W + \frac{rr^T}{s^Tr} - \frac{Wss^TW}{s^TWs}\\
+d &:= -W^{-1}\frac{\partial Q}{\partial u};
 \end{aligned}
 \end{equation}
 \noindent gdzie:\newline
