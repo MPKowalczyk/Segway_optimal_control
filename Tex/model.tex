@@ -3,7 +3,8 @@
 
 W pierwszej kolejności postanowiono wyznaczyć model matematyczny obiektu sterowania. Dla tego modelu wyznaczane będzie optymalne sterowanie. Podstawową pracą z której korzystano do tego zadania jest \cite{Babazadeh}. Założono, że napęd stanowią silniki prądu stałego. Model takiego silnika w postaci równań stanu można przedstawić w następujący sposób:
 \begin{equation}
-\dot{x}=
+\begin{aligned}
+\dot{x}&=
 \begin{bmatrix}
 	-\frac{R}{L} & -\frac{k_e}{L} \\
 	\frac{k_m}{I_r} & -\frac{k_e}{I_r}
@@ -13,36 +14,34 @@ x+
 	\frac{1}{L} & 0 \\
 	0 & -\frac{1}{I_r}
 \end{bmatrix}
-u
-\label{eq:dc_model_x}
-\end{equation}
-\begin{equation}
-y=
+u\\
+y&=
 \begin{bmatrix}
 	0 & 1
 \end{bmatrix}
 x
-\label{eq:dc_model_y}
+\end{aligned}
+\label{eq:dc_model}
 \end{equation}
-\noindent Gdzie:\newline
+\noindent gdzie:\newline
 \(x=
 \begin{bmatrix}
 	i \\
 	\omega
-\end{bmatrix}\) jest wektorem zmiennych stanów.\newline
-\(i\) jest prądem silnika.\newline
-\(\omega\) jest prędkością obrotową.\newline
+\end{bmatrix}\) jest wektorem zmiennych stanu\newline
+\(i\) jest prądem silnika\newline
+\(\omega\) jest prędkością kątową\newline
 \(u=
 \begin{bmatrix}
 	V \\
 	\tau
-\end{bmatrix}\) jest wektorem wejść modelu.\newline
-\(V\) jest napięciem podawanym na silnik.\newline
-\(\tau\) jest momentem obciążenia mechanicznego.\newline
-\(I_r\) jest momentem bezwładności przeniesionym na wał silnika.\newline
-\(L\) jest induktancją.\newline
-\(R\) jest rezystancją.\newline
-\(k_e\) jest stałą elektromotoryczną.\newline
+\end{bmatrix}\) jest wektorem sterowań\newline
+\(V\) jest napięciem podawanym na silnik\newline
+\(\tau\) jest momentem obciążenia mechanicznego\newline
+\(I_r\) jest momentem bezwładności przeniesionym na wał silnika\newline
+\(L\) jest induktancją\newline
+\(R\) jest rezystancją\newline
+\(k_e\) jest stałą elektromotoryczną\newline
 \(k_r\) jest stałą momentu silnika.
 
 \paragraph*{}
@@ -172,7 +171,7 @@ Po podstawieniu \eqref{eq:sum_forces_rid_hand} do \eqref{eq:moment_pas_dr_C} otr
 \begin{equation}
 I_p\ddot \theta_p-\frac{2k_mk_e}{Rr}\dot x+\frac{2k_m}{R}V_a+M_pl^2\ddot \theta_p+M_pgl \sin \theta_p=-M_pl\ddot x\cos \theta_p
 \end{equation}
-Alby wyeliminować \((H_L+H_R)\) z modelu, równanie \eqref{eq:sum_H} podstawia się do równania \eqref{eq:total_x}:
+Aby wyeliminować \((H_L+H_R)\) z modelu, równanie \eqref{eq:sum_H} podstawia się do równania \eqref{eq:total_x}:
 \begin{equation}
 2(M_w+\frac{I_w}{r^2})\ddot x=-\frac{2k_mk_e}{Rr^2}+\frac{2k_m}{Rr}V_a-M_pl\ddot \theta_p \cos \theta_p+M_pl\dot \theta_p^2\sin \theta_p-M_p\ddot x
 \end{equation}
@@ -204,12 +203,12 @@ M(x) &= k_{11}+k_{12}\cos ^2x_3
 \end{aligned}
 \label{eq:nonlinear_ss}
 \end{equation}
-\noindent Gdzie:\newline
+\noindent gdzie:\newline
 \(k_{1\dots 12}\) są stałymi parametrami obiektu.
 
 \paragraph*{}
-Opisany powyżej model zaimplementowano w programie \textit{MATLAB}. Został on przetestowany poprzez zadanie takich warunków w których można łatwo przewidzieć zachowanie rzeczywistego obiektu, np. niewielkie odchylenie od niestabilnego punktu równowagi (obiekt ustawiony pionowo do góry). Odpowiedź modelu dla tej sytuacji przedstawiono na rysunku \ref{fig:wychylenie_test}. W tym wypadku odpowiedź obiektu przypomina wahadło fizyczne. Na rysunku \ref{fig:polozenie_test} pokazano jak zmienia się położenie pojazdu w opisywanej sytuacji. Przebiegi czasowe zmiennych stanu zgadzają się z przewidywanym zachowaniem realnego urządzenia (nie biorąc pod uwagę uderzenia w ziemię).
-
+Opisany powyżej model zaimplementowano w środowisku programowym \textit{MATLAB}. Został on przetestowany poprzez zadanie takich warunków w których można łatwo przewidzieć zachowanie rzeczywistego obiektu, np. niewielkie odchylenie od niestabilnego punktu równowagi (obiekt ustawiony pionowo do góry). Odpowiedź modelu dla tej sytuacji przedstawiono na rysunku \ref{fig:wychylenie_test}. W tym wypadku odpowiedź obiektu przypomina wahadło fizyczne. Na rysunku \ref{fig:polozenie_test} pokazano jak zmienia się położenie pojazdu w opisywanej sytuacji. Przebiegi czasowe zmiennych stanu zgadzają się z przewidywanym zachowaniem realnego urządzenia (nie biorąc pod uwagę uderzenia w ziemię).
+\newpage
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=4in]{Figures/wychylenie_test.eps}
@@ -225,7 +224,7 @@ Opisany powyżej model zaimplementowano w programie \textit{MATLAB}. Został on 
 \end{figure}
 
 Postanowiono również porównać zaimplementowaną metodę Rungego-Kutty 4-go rzędu z wbudowaną funkcją \textit{ode45}. Porównanie to dla częstotliwości próbkowania równej 1 kHz przedstawiono na rysunku \ref{fig:wychylenie_1khz}. Natomiast na rysunku \ref{fig:wychylenie_10khz} pokazano to samo porównanie dla częstotliwości próbkowania równej 10 kHz. Różnice pomiędzy tymi metodami są niewielkie. Otrzymane wyniki są prawie takie same również dla zwiększonej częstotliwości próbkowania. Można więc stwierdzić, że częstotliwość 1 kHz jest wystarczająca, do poprawnego modelowania zachowania obiektu.
-
+\newpage
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=4in]{Figures/wychylenie_1khz.eps}

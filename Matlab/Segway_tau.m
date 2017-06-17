@@ -1,15 +1,15 @@
 % Problem sterowania optymalnego dla pojazdu typu Segway.
-%clear all;
+clear all;
 close all;
 format long e;
 format compact;
 %% Parametry symulacji
-Tsim=2;
+Tsim=1;
 fs=1e3;
 pr_fig=0;
 
 %% Parametry obiektu sterowania
-Mp = 10;        
+Mp = 10;
 l = 1;
 Ip = 10;
 km = 0.9;
@@ -20,7 +20,7 @@ Va = 0;
 g = 9.81;
 Iw = 0.1;
 Mw = 0.5;
-u_max=24;
+u_max=16;
 
 %% Wspó³czynniki modelu matematycznego
 c1 = Mp*l^2 + Ip;
@@ -35,19 +35,19 @@ c9 = Mp*l;
 c10 = -Mp*l;
 c11 = c7*c1/c5 + c9;
 fi_max=pi/18;
-K=0.3e7;
+K=0.3e2;
 
 %% Symulacja stanu
-N = 16;
+N = 10;
 tau = linspace(0,Tsim,N)';
 dtau = diff(tau);
-%u = u_max*(2*rand(size(dtau))-1);
+u = u_max*(2*rand(size(dtau))-1);
 %u=u_max*ones(size(dtau));
 %u=u_max*zeros(size(dtau));
 h0 = 0.001;
 n = ceil(dtau/h0);
 cn = cumsum([1;n]);
-x0 = [4;0;0*pi/180;0;0];
+x0 = [-1;0;0*pi/180;0;0];
 [t, x] = rk4_tau(@rownania_penalty,x0,dtau,cn,h0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,u);
 
 %% Równania sprzê¿one
@@ -62,9 +62,9 @@ Q0=cost(@rownania_penalty,x0,dtau,cn,h0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,
 for i=1:5
     dQ(i)=(cost(@rownania_penalty,x0+epsilon(:,i),dtau,cn,h0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,u)-Q0)/de;
 end
-%dQ
-%psi(1,:)'
-roznica_sprzezone = dQ + psi(1,:)'
+dQ
+psi(1,:)'
+%roznica_sprzezone = dQ + psi(1,:)'
 %% Sprawdzenie gradientów
 eps = 1e-7;
 Q0=cost(@rownania_penalty,x0,dtau,cn,h0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,fi_max,K,u);
@@ -91,7 +91,7 @@ xlabel('Czas [t]');
 ylabel('Po³o¿enie [m]');
 grid on;
 if pr_fig
-    print('Figures/easy_pos','-depsc2');
+    print('Figures/hard_pos','-depsc2');
     close;
 end
 figure(2);
@@ -101,7 +101,7 @@ xlabel('czas [t]');
 ylabel('prêdkoœæ liniowa [m/s]');
 grid on;
 if pr_fig
-    print('Figures/easy_vel','-depsc2');
+    print('Figures/hard_vel','-depsc2');
     close;
 end
 figure(3);
@@ -113,7 +113,7 @@ xlabel('Czas [t]');
 ylabel('Wychylenie [rad]');
 grid on;
 if pr_fig
-    print('Figures/easy_ang','-depsc2');
+    print('Figures/hard_ang','-depsc2');
     close;
 end
 figure(4);
@@ -123,7 +123,7 @@ xlabel('Czas [t]');
 ylabel('Prêdkoœæ k¹towa [rad/s]');
 grid on;
 if pr_fig
-    print('Figures/easy_ang_vel','-depsc2');
+    print('Figures/hard_ang_vel','-depsc2');
     close;
 end
 figure(5);
@@ -133,7 +133,7 @@ xlabel('Czas [t]');
 ylabel('Kara za wychylenie');
 grid on;
 if pr_fig
-    print('Figures/easy_pen','-depsc2');
+    print('Figures/hard_pen','-depsc2');
     close;
 end
 figure(6);
@@ -147,6 +147,6 @@ ylabel('Sterowanie [V]');
 ylim([-u_max u_max]);
 grid on;
 if pr_fig
-    print('Figures/easy_con','-depsc2');
+    print('Figures/hard_con','-depsc2');
     close;
 end

@@ -28,13 +28,13 @@ Sprawdziwszy poprawność funkcji wyliczającej wartość funkcji kosztu oraz je
 s &= u - u_{prev}\\
 r &= \frac{\partial Q}{\partial u} - g\\
 W &= W + \frac{rr^T}{s^Tr} - \frac{Wss^TW}{s^TWs}\\
-d &= -W^{-1}\frac{\partial Q}{\partial u};
+d &= -W^{-1}\frac{\partial Q}{\partial u}
 \end{aligned}
 \end{equation}
-\noindent Gdzie:\newline
-\(u_{prev}\) jest sterowaniem w poprzedniej iteracji.\newline
-\(g\) jest gradientem w poprzedniej iteracji.\newline
-\(W\) oznacza przybliżony hesjan zgodnie z ideą metody BFGS.\newline
+\noindent gdzie:\newline
+\(u_{prev}\) jest sterowaniem w poprzedniej iteracji\newline
+\(g\) jest gradientem w poprzedniej iteracji\newline
+\(W\) oznacza przybliżony hesjan zgodnie z ideą metody BFGS\newline
 \(d\) jest nowym kierunkiem poszukiwań.
 \item Szukaj na kierunku. Wróć do kroku 2.
 \end{enumerate}

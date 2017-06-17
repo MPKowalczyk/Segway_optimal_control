@@ -3,29 +3,29 @@
 
 Podstawowym celem sterowania jest utrzymanie pojazdu w pozycji pionowej. Jest to niestabilny punkt równowagi. Sterowanie powinno uwzględniać ograniczenie maksymalnego wychylenia obiektu z tego położenia oraz maksymalne napięcie podawane na silnik prądu stałego. Oprócz tego wymaga się, żeby pojazd przemieścił się o zadaną odległość przy jak najmniejszym zużyciu energii. Wybrano więc następujący wskaźnik jakości sterowania:
 \begin{equation}
-Q=x^T(T)x(T)
+Q=\frac{1}{2}x^T(T)x(T)
 \end{equation}
-\noindent Gdzie:\newline
-\(x\) jest stanem obiektu.\newline
+\noindent gdzie:\newline
+\(x\) jest stanem obiektu\newline
 \(T\) jest horyzontem czasowym.
 
 \paragraph*{}
 Należy wziąć pod uwagę również ograniczenia:
 \begin{equation}
-|u(t)|< u_{max}
+|u(t)|\leqslant u_{max}
 \label{eq:u_max}
 \end{equation}
 \begin{equation}
-|x_3(t)|< \phi_{max}
+|x_3(t)|\leqslant \phi_{max}
 \label{eq:phi_max}
 \end{equation}
-\noindent Gdzie:\newline
-\(u\) jest wejściem obiektu (napięciem podawanym na silnik).\newline
-\(u_{max}\) jest maksymalnym napięciem, które można podać na silnik.\newline
+\noindent gdzie:\newline
+\(u\) jest sterowaniem (napięciem podawanym na silnik)\newline
+\(u_{max}\) jest maksymalnym napięciem, które można podać na silnik\newline
 \(\phi_{max}\) jest maksymalnym wychyleniem pojazdu z położenia pionowego.
 
 \paragraph*{}
-Ograniczenie \eqref{eq:u_max} odnosi się do fizycznego ograniczenia napięciem akumulatora urządzenia. Nie jest możliwe podanie większego napięcia. Ograniczenie \eqref{eq:phi_max} ma na celu zabezpieczenie pojazdu przed upadkiem oraz zrzuceniem transportowanego obiektu. Nierówność \eqref{eq:phi_max} została uwzględniona w zadaniu za pomocą funkcji kary. Zadanie więc zostało zmodyfikowane do następującej postaci:
+Ograniczenie \eqref{eq:u_max} odnosi się do fizycznego ograniczenia napięcia akumulatora. Nie jest możliwe podanie większego napięcia. Ograniczenie \eqref{eq:phi_max} ma na celu zabezpieczenie pojazdu przed upadkiem oraz zrzuceniem transportowanego obiektu. Nierówność \eqref{eq:phi_max} została uwzględniona w zadaniu za pomocą funkcji kary. Zadanie więc zostało zmodyfikowane do następującej postaci:
 \begin{equation}
 \begin{aligned}
 \dot x_1 &=x_2\\
@@ -33,11 +33,11 @@ Ograniczenie \eqref{eq:u_max} odnosi się do fizycznego ograniczenia napięciem 
 \dot x_3 &=x_4\\
 \dot x_4 &=\frac{L}{M}\\
 \dot x_5 &=f_5\\
-Q &=x^T(T)x(T)
+Q &=\frac{1}{2}\sum\limits_{k=1}^4 x_k(T)^2+x_5(T)
 \end{aligned}
 \label{eq:ss_penalty}
 \end{equation}
-\noindent Gdzie:
+\noindent gdzie:
 \begin{equation}
 \begin{aligned}
 L &=(k_5\cos x_3+k_6)u+(k_7\cos x_3+k_8)x_2+k_9\sin x_3+k_{10}x_4^2\sin x_3\cos x_3\\
@@ -50,24 +50,24 @@ f_5 &=
 	\end{cases}
 \end{aligned}
 \end{equation}
-Dla zadania opisanego równaniami \eqref{eq:ss_penalty} wyznaczono równania sprzężone:
+Dla zadania opisanego równaniami \eqref{eq:ss_penalty} wyznaczono funkcję sprzężoną:
 \begin{equation}
 \dot \psi=-\frac{\partial f}{\partial x}\psi
 \end{equation}
-\noindent Gdzie:\newline
-\(\psi\) jest wektorem funkcji sprzężonych \([\psi_1, \psi_2, \psi_3, \psi_4, \psi_5]^T\).\newline
+\noindent gdzie:\newline
+\(\psi\) jest wektorem funkcji sprzężonych \([\psi_1, \psi_2, \psi_3, \psi_4, \psi_5]^T\)\newline
 \(f\) jest prawymi stronami układu równań stanu \eqref{eq:ss_penalty}.
 \begin{equation}
 \frac{\partial f}{\partial x}=\begin{bmatrix}
 0 & 0 & 0 & 0 & 0\\
 1 & k_2\cos(x_3)\frac{\partial S}{\partial x_2}+k_1 & 0 & \frac{\partial S}{\partial x_2} & 0\\
-0 & k_3x_4^2\cos x_3+k_2\frac{\partial S}{\partial x_3}\cos x_3-k_2S\sin x_3 & 0 & \frac{\partial S}{\partial x_3} & \frac{f_5}{x_3}\\
+0 & k_3x_4^2\cos x_3+k_2\frac{\partial S}{\partial x_3}\cos x_3-k_2S\sin x_3 & 0 & \frac{\partial S}{\partial x_3} & \frac{\partial f_5}{\partial x_3}\\
 0 & 2k_3x_4\sin x_3+k_2\frac{\partial S}{x_4}\cos x_3 & 1 & \frac{\partial S}{\partial x_4} & 0\\
 0 & 0 & 0 & 0 & 0
 \end{bmatrix}
 \end{equation}
-\noindent Gdzie:\newline
-\(S=\frac{L}{M}\) jest funkcją wprowadzoną w celu uproszczenia obliczeń.
+\noindent gdzie:\newline
+\(S=\frac{L}{M}\) jest funkcją wprowadzoną w celu uproszczenia obliczeń. Pochodne funkcji \(S\) można znaleźć w skryptach dołączonych do pracy.
 \begin{equation}
 \frac{\partial f_5}{\partial x_3}=
 	\begin{cases}
@@ -76,38 +76,58 @@ Dla zadania opisanego równaniami \eqref{eq:ss_penalty} wyznaczono równania spr
 	K(x_3+\phi_{max}), & \text{kiedy } x_3\leqslant -\phi_{max}
 	\end{cases}
 \end{equation}
-Warunek końcowy równań sprzężonych jest następujący:
+Warunek końcowy funkcji sprzężonej jest następujący:
 \begin{equation}
-\psi(T)=-\frac{\partial Q}{\partial x(T)}
+\psi(T)=-\frac{\partial Q}{\partial x(T)}=
+\begin{bmatrix}
+-x_1(T)\\
+-x_2(T)\\
+-x_3(T)\\
+-x_4(T)\\
+-1
+\end{bmatrix}
 \end{equation}
-Wiadomo, że równania sprzężone spełniają następujące równanie:
+Wiadomo, że funkcja sprzężona spełnia następujące równanie:
 \begin{equation}
 \frac{\partial Q(u,x(0))}{\partial x(0)}=-\psi(0)
 \label{eq:check_psi}
 \end{equation}
-Postanowiono wykorzystać tę równość do sprawdzenia poprawności wyznaczonych równań sprzężonych. W tym celu konieczne było rozwiązanie równań sprzężonych do tyłu w celu wyznaczenia wartości \(-\psi(0)\). Pochodna \(\frac{\partial Q(u,x(0))}{\partial x(0)}\) została przybliżona za pomocą ilorazów różnicowych:
+Postanowiono wykorzystać tę równość do sprawdzenia poprawności wyznaczonej funkcji sprzężonej. W tym celu konieczne było rozwiązanie równań sprzężonych do tyłu w celu wyznaczenia wartości \(-\psi(0)\). Pochodna \(\frac{\partial Q(u,x(0))}{\partial x(0)}\) została przybliżona za pomocą ilorazów różnicowych:
 \begin{equation}
 \frac{\partial Q(u,x(0))}{\partial x_k(0)}\approx\frac{Q(u,x_1(0),\dots, x_k(0)+\epsilon,\dots,x_n(0))}{\epsilon}
 \end{equation}
-\noindent Gdzie:\newline
+\noindent gdzie:\newline
 \(\epsilon\) jest bardzo małym przyrostem (przyjmowano \(\epsilon=10^{-7}\)).
 \paragraph*{}
-Dla różnych przypadków testowych (różne warunki początkowe i ograniczenia) sprawdzano błąd równości \eqref{eq:check_psi}. Przykładowy błąd dla prostego zadania testowego wynosi:
+Dla różnych przypadków testowych (różne warunki początkowe i ograniczenia) sprawdzano błąd równości \eqref{eq:check_psi}. Przykładowe wartości dla prostego zadania testowego wynoszą:
 \begin{equation}
-\frac{\partial Q(u,x(0)}{\partial x(0)}+\psi(0)=
+\frac{\partial Q(u,x(0))}{\partial x(0)}=
 \begin{bmatrix}
-5.14\cdot 10^{-8}\\
-2.27\cdot 10^{-7}\\
-1.87\cdot 10^{-5}\\
-2.96\cdot 10^{-6}\\
--1.63\cdot 10^{-9}
+\begin{aligned}
+-&9.67666569\cdot 10^{-2}\\
+-&2.85626527\cdot 10^{0}\\
+&3.40155712\cdot 10^{1}\\
+&1.35501054\cdot 10^{1}\\
+&1.00000000\cdot 10^{0}
+\end{aligned}
+\end{bmatrix}
+\qquad
+-\psi(0)=
+\begin{bmatrix}
+\begin{aligned}
+-&9.67667099\cdot 10^{-2}\\
+-&2.85626538\cdot 10^{0}\\
+&3.40155622\cdot 10^{1}\\
+&1.35501039\cdot 10^{1}\\
+&1.00000000\cdot 10^{0}
+\end{aligned}
 \end{bmatrix}
 \end{equation}
 Błędy są bardzo małe. Na podstawie powyższego wyniku stwierdzono, że wyznaczone równania sprzężone są poprawne.\\
 W trakcie numerycznego rozwiązywania wstecz równań sprzężonych wyliczano również gradient \eqref{eq:Grad}.
 \begin{equation}
 \begin{aligned}
-&z(t) = \frac{\partial Q}{\partial u_i}=-\int\limits_{t_i}^{t_{i+1}}\frac{\partial H}{\partial u}dt&\\
+&z(t_i) = \frac{\partial Q}{\partial u_i}=-\int\limits_{t_i}^{t_{i+1}}\frac{\partial H}{\partial u}dt&\\
 &\dot{z}(t) = \frac{\partial H}{\partial u_i}, t\in [t_i,t_{i+1}]&\\
 &z(t_{i+1}) = 0
 \label{eq:Grad}
@@ -118,4 +138,32 @@ Wymiar wektora \textit{z} jest zależny od wyboru liczby węzłów strukturalnyc
 \label{eq:checkGrad}
 \frac{Q(u+\Delta u)-Q(u)}{\Delta u}
 \end{equation}
-Otrzymane wyniki były zgodne z dokładnością do czwartego miejsca po przecinku.
+Wyniki otrzymane dla prostego zadania testowego:
+\begin{equation}
+\frac{\partial Q}{\partial u}=
+\begin{bmatrix}
+1.64610454\cdot 10^{-1}\\
+1.27314436\cdot 10^{-1}\\
+1.02532044\cdot 10^{-1}\\
+8.50547635\cdot 10^{-2}\\
+7.28772423\cdot 10^{-2}\\
+6.68479648\cdot 10^{-2}\\
+6.71731968\cdot 10^{-2}\\
+7.75069815\cdot 10^{-2}\\
+9.76715801\cdot 10^{-2}
+\end{bmatrix}
+\qquad
+\frac{Q(u+\Delta u)-Q(u)}{\Delta u}=
+\begin{bmatrix}
+1.64610574\cdot 10^{-1}\\
+1.28604931\cdot 10^{-1}\\
+1.03553459\cdot 10^{-1}\\
+8.58912052\cdot 10^{-2}\\
+7.35804306\cdot 10^{-2}\\
+6.74685329\cdot 10^{-2}\\
+6.77647360\cdot 10^{-2}\\
+7.81427855\cdot 10^{-2}\\
+9.84478631\cdot 10^{-2}\\
+\end{bmatrix}
+\end{equation}
+Błędy są bardzo małe. Na podstawie powyższego wyniku stwierdzono, że wyznaczony gradient jest poprawny.
