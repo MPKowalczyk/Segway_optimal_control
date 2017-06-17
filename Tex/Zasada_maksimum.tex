@@ -15,7 +15,7 @@ $u(t)\in\textbf{R}$ oznacza sterowanie (napięcie podawane na silnik DC).\newlin
 \paragraph*{}
 Punkt początkowy $x(0)=x_0$ jest ustalony. Rozwiązanie równań stanu nie zależy wprost od czasu - problem jest stacjonarny. Za zmienną decyzyjną przyjęto sterowanie, które ma postać funkcji przedziałami ciągłej. Ilość przedziałów zależy od wyboru ilości węzłów strukturalnych, która traktowana będzie jako parametr wywołania programu wyliczającego sterowanie optymalne. Wartości sterowania należą do zbioru dopuszczalnego, posiadającego kres górny oraz dolny. Założenie to uznajemy za konieczne, w przeciwnym wypadku należałoby spodziewać się, że sterowanie w kolejnych przedziałach przyjmowałoby bardzo duże wartości. Takie rozwiązanie nie miałoby fizycznego sensu. Wskaźnik jakości jest postaci:
 \begin{equation}
-Q(u)=q1(x(T))+\int\limits_{0}^{T}p(x_3(t))dt
+Q(u)=q_1(x(T))+\int\limits_{0}^{T}p(x_3(t))dt
 \end{equation}
 \noindent Gdzie:\newline
 \(\int\limits_{0}^{T}p(x_3(t))dt\geq0\) wyraża karę za nadmierne odchylenie Segwaya od niestabilnego punktu równowagi.\newline
@@ -25,7 +25,7 @@ Za najbardziej interesujące rozwiązanie uznano takie, w którym T jest jak naj
 Problem o tak sformułowanym wskaźniku jakości nosi nazwę Bolzy. Poprzez prosty zabieg matematyczny sprowadzono powyższe równanie do postaci Mayera. W tym celu rozszerzono przestrzeń stanu systemu o kolejną zmienną:
 \begin{equation}
 \begin{aligned}
-x_5(t)&=\int\limits_{0}^{T}p(x_3(t))dt \\
+x_5(t)&=\int\limits_{0}^{t}p(x_3(\tau))d\tau \\
 \dot{x}_5(t)&=p(x_3(t))\\
 x_5(0)&=0\\
 Q(u)&=q(x(T))
@@ -33,7 +33,7 @@ Q(u)&=q(x(T))
 \end{equation}
 Korzystając z przekształconej postaci wskaźnika zapisano prehamiltonian
 \begin{equation}
-H(\psi(t),x(t),u(t)=\psi(t)^Tf(x(t),u(t))
+H(\psi(t),x(t),u(t))=\psi(t)^Tf(x(t),u(t))
 \end{equation}
 gdzie $\psi$ symbolizuje funkcję sprzężoną wyznaczoną z równania
 \begin{equation}

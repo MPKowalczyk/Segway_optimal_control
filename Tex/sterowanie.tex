@@ -3,7 +3,7 @@
 
 Podstawowym celem sterowania jest utrzymanie pojazdu w pozycji pionowej. Jest to niestabilny punkt równowagi. Sterowanie powinno uwzględniać ograniczenie maksymalnego wychylenia obiektu z tego położenia oraz maksymalne napięcie podawane na silnik prądu stałego. Oprócz tego wymaga się, żeby pojazd przemieścił się o zadaną odległość przy jak najmniejszym zużyciu energii. Wybrano więc następujący wskaźnik jakości sterowania:
 \begin{equation}
-Q=x^T(T)x(T)
+Q=\frac{1}{2}(x_1(T)^2+x_2(T)^2+x_3(T)^2+x_4(T)^2)+x_5(T)
 \end{equation}
 \noindent Gdzie:\newline
 \(x\) jest stanem obiektu.\newline
@@ -33,7 +33,6 @@ Ograniczenie \eqref{eq:u_max} odnosi się do fizycznego ograniczenia napięciem 
 \dot x_3 &=x_4\\
 \dot x_4 &=\frac{L}{M}\\
 \dot x_5 &=f_5\\
-Q &=x^T(T)x(T)
 \end{aligned}
 \label{eq:ss_penalty}
 \end{equation}
@@ -78,7 +77,16 @@ Dla zadania opisanego równaniami \eqref{eq:ss_penalty} wyznaczono równania spr
 \end{equation}
 Warunek końcowy równań sprzężonych jest następujący:
 \begin{equation}
-\psi(T)=-\frac{\partial Q}{\partial x(T)}
+\begin{aligned}
+\psi(T)=-\frac{\partial Q}{\partial x(T)}\\
+\psi(T)=\begin{bmatrix}
+-x_1(T)\\
+-x_2(T)\\
+-x_3(T)\\
+-x_4(T)\\
+-1
+\end{bmatrix}
+\end{aligned}
 \end{equation}
 Wiadomo, że równania sprzężone spełniają następujące równanie:
 \begin{equation}
@@ -107,7 +115,7 @@ Błędy są bardzo małe. Na podstawie powyższego wyniku stwierdzono, że wyzna
 W trakcie numerycznego rozwiązywania wstecz równań sprzężonych wyliczano również gradient \eqref{eq:Grad}.
 \begin{equation}
 \begin{aligned}
-&z(t) = \frac{\partial Q}{\partial u_i}=-\int\limits_{t_i}^{t_{i+1}}\frac{\partial H}{\partial u}dt&\\
+&z(t_i) = \frac{\partial Q}{\partial u_i}=-\int\limits_{t_i}^{t_{i+1}}\frac{\partial H}{\partial u}dt&\\
 &\dot{z}(t) = \frac{\partial H}{\partial u_i}, t\in [t_i,t_{i+1}]&\\
 &z(t_{i+1}) = 0
 \label{eq:Grad}
