@@ -24,11 +24,12 @@ Sprawdziwszy poprawność funkcji wyliczającej wartość funkcji kosztu oraz je
 \item Jeżeli to pierwsza iteracja lub nie znaleziono lepszego sterowania na kierunku to szukaj na kierunku najszybszego spadku (reset metody). Wróć do 2.
 \item Wyznacz nowy kierunek poszukiwań według następującej reguły:
 \begin{equation}
+\label{eq:bfgss}
 \begin{aligned}
 s &:= u - u_{prev}\\
 r &:= \frac{\partial Q}{\partial u} - g\\
 W &:= W + \frac{rr^T}{s^Tr} - \frac{Wss^TW}{s^TWs}\\
-d &:= -W^{-1}\frac{\partial Q}{\partial u};
+Wd &:= -\frac{\partial Q}{\partial u};
 \end{aligned}
 \end{equation}
 \noindent gdzie:\newline
@@ -38,7 +39,7 @@ d &:= -W^{-1}\frac{\partial Q}{\partial u};
 \(d\) jest nowym kierunkiem poszukiwań.
 \item Szukaj na kierunku. Wróć do kroku 2.
 \end{enumerate}
-
+W celu wyznaczenia nowego kierunku poszukiwań rozwiązywany jest układ równań (\ref{eq:bfgss}). Dzięki takiemu podejściu uniknięto odwracania macierzy \textit{W}.
 \subsection{Warunki stopu}
 Algorytm powinien zakończyć swoje działanie w momencie kiedy spełniony zostanie co najmniej jeden z dwóch warunków: 
 \begin{enumerate}
